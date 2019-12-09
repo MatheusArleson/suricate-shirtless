@@ -1,0 +1,164 @@
+package io.suricate.shirtless.model.parameter.sort;
+
+import java.util.Objects;
+
+/**
+ * Base interface for Sort Parameters of an Search.
+ * <br/><br/>
+ * Instances will hold values to be used on the Sort of the Search itself.
+ * <br/><br/>
+ * Sorting has a concept of <b>codes</b>. <br/>
+ * In other words, the sort values require translation
+ * from the code to the values itself (indirection). <br/>
+ * <b>Example:</b> User wants to sort books by title. <br/>
+ * Sort parameters should have the code for book tile, eg. 'bt'
+ * <br/><br/>
+ * Sorting has a concept of <b>directions</b>. <br/>
+ * In other words, the sort values require an direction to be
+ * applied, usually <i>ascending</i> or <i>descending</i>. <br/>
+ * <b>Example:</b> User wants to sort books by title, ascending. <br/>
+ * Sort parameters should have the code for ascending, eg 'asc'
+ * <br/><br/>
+ * Sorting has a concept of <b>index sliding column</b>. <br/>
+ * In other words, a single sort will be processed using the same
+ * index of both arrays (like a sliding column). <br/>
+ * <b>Example:</b> The first sort will processed on index 0 of both <b>codes and directions</b>.
+ * <br/><br/>
+ * Design decision note: Why arrays?
+ * <br/><br/>
+ * This is due to the way HTTP GET query string works. https://tools.ietf.org/html/rfc3986 <br/>
+ * If a parameter is a list, the same parameter will be repeat
+ * over and over in the order that it was sent. <br/>
+ * <i>/search?sort.code=foo&sort.code=bar </i> <br/>
+ * Complex objects here requires serialization that is
+ * outside of the scope of this code. <br/>
+ * To maximize compatibility, using separate arrays fits nicely on HTTP itself,
+ * requiring the minimum serialization possible.
+ *
+ */
+public interface SearchSortParameters {
+
+	/**
+	 * Gets the values of Sort Codes. <br/>
+	 * Codes will be evaluated and
+	 * translated to values to be used on the Search.
+	 *
+	 * @return Sort Codes values.
+	 */
+	String[] getSortCodes();
+
+	/**
+	 * Sets the values of Sort Codes.
+	 * Codes will be evaluated and
+	 * translated to values to be used on the Search.
+	 *
+	 * @param sortCodes Sort Codes values.
+	 */
+	void setSortCodes(String[] sortCodes);
+
+	/**
+	 * Gets the values of Sort Directions. <br/>
+	 * Directions will be evaluated and
+	 * translated to values to be used on the Search.
+	 *
+	 * @return Sort Directions values.
+	 */
+	String[] getSortDirections();
+
+	/**
+	 * Sets the values of Sort Directions.
+	 * Directions will be evaluated and
+	 * translated to values to be used on the Search.
+	 *
+	 * @param sortDirections Sort Directions values.
+	 */
+	void setSortDirections(String[] sortDirections);
+
+	/**
+	 * Checks if an instance of this interface is <b>Null</b>.
+	 * <br/><br/>
+	 * This is used internally to do checks before
+	 * an actual search is performed.
+	 * <br/><br/>
+	 * Example:
+	 * Null/Empty sort parameters can be refused
+	 * OR a fallback default could be set.
+	 *
+	 * @param parameters Instance to be checked.
+	 * @return True if Null, False if Not Null.
+	 *
+	 * @see #isNotNull(SearchSortParameters)
+	 */
+	static boolean isNull(SearchSortParameters parameters){
+		return Objects.isNull(parameters);
+	}
+
+	/**
+	 * Checks if an instance of this interface is <b>Not Null</b>.
+	 * <br/><br/>
+	 * This is used internally to do checks before
+	 * an actual search is performed.
+	 * <br/><br/>
+	 * Example:
+	 * Null/Empty sort parameters can be refused
+	 * OR a fallback default could be set.
+	 *
+	 * @param parameters Instance to be checked.
+	 * @return True if Not Null, False if Null.
+	 *
+	 * @see #isNull(SearchSortParameters)
+	 */
+	static boolean isNotNull(SearchSortParameters parameters) {
+		return !isNull(parameters);
+	}
+
+	/**
+	 * Checks if an instance of this interface is <b>Empty</b>.
+	 * <br/><br/>
+	 * Is Empty if both codes and directions arrays are null and empty.
+	 * <br/><br/>
+	 * This is used internally to do checks before
+	 * an actual search is performed.
+	 * <br/><br/>
+	 * Example:
+	 * Null/Empty sort parameters can be refused
+	 * OR a fallback default could be set.
+	 *
+	 * @param parameters Instance to be checked.
+	 * @return True if Empty, False if Not Empty.
+	 *
+	 * @see #isNotEmpty(SearchSortParameters)
+	 * @see #setSortCodes(String[])
+	 * @see #setSortDirections(String[])
+	 */
+	static boolean isEmpty(SearchSortParameters parameters){
+		return isNull(parameters) || (
+			Objects.isNull(parameters.getSortCodes()) ||
+			Objects.isNull(parameters.getSortDirections())
+		);
+	}
+
+	/**
+	 * Checks if an instance of this interface is <b>Not Empty</b>.
+	 * <br/><br/>
+	 * Is not Empty if both codes and directions arrays are not null and not empty.
+	 * <br/><br/>
+	 * This is used internally to do checks before
+	 * an actual search is performed.
+	 * <br/><br/>
+	 * Example:
+	 * Null/Empty sort parameters can be refused
+	 * OR a fallback default could be set.
+	 *
+	 * @param parameters Instance to be checked.
+	 * @return True if Not Empty, False if Empty.
+	 *
+	 * @see #isEmpty(SearchSortParameters)
+	 * @see #setSortCodes(String[])
+	 * @see #setSortDirections(String[])
+	 */
+	static boolean isNotEmpty(SearchSortParameters parameters){
+		return !isEmpty(parameters);
+	}
+
+}
