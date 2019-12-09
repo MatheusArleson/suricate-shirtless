@@ -10,10 +10,41 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
+	<developers>
+		<developer>
+			<email>matheusarleson@gmail.com</email>
+			<name>Matheus Arleson</name>
+			<url>https://github.com/MatheusArleson</url>
+			<id>MatheusArleson</id>
+		</developer>
+	</developers>
+
+	<organization>
+		<name>Suricates</name>
+		<url>https://github.com/MatheusArleson/suricate-shirtless</url>
+	</organization>
+
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/MatheusArleson/suricate-shirtless/issues</url>
+	</issueManagement>
+
+	<scm>
+		<url>https://github.com/MatheusArleson/suricate-shirtless</url>
+		<connection>scm:git:git://github.com/MatheusArleson/suricate-shirtless.git</connection>
+		<developerConnection>scm:git:git://github.com/MatheusArleson/suricate-shirtless.git</developerConnection>
+	</scm>
+
 	<properties>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
+
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
 		<lombok.version>1.18.10</lombok.version>
+
+		<jacoco.maven.plugin.version>0.8.5</jacoco.maven.plugin.version>
 	</properties>
 
 	<dependencies>
@@ -25,5 +56,29 @@
 		</dependency>
 
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${jacoco.maven.plugin.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>
