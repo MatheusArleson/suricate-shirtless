@@ -43,7 +43,12 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
 		<lombok.version>1.18.10</lombok.version>
+
 		<junit.jupiter.api.version>5.5.2</junit.jupiter.api.version>
+		<junit.jupiter.platform.runner.version>1.5.2</junit.jupiter.platform.runner.version>
+		<junit.jupiter.engine.version>5.5.2</junit.jupiter.engine.version>
+		<mockito.junit.jupiter.version>3.2.0</mockito.junit.jupiter.version>
+		<powermock.version>2.0.4</powermock.version>
 
 		<jacoco.maven.plugin.version>0.8.5</jacoco.maven.plugin.version>
 	</properties>
@@ -61,6 +66,41 @@
 			<version>${junit.jupiter.api.version}</version>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>${junit.jupiter.engine.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-runner</artifactId>
+			<version>${junit.jupiter.platform.runner.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-junit-jupiter</artifactId>
+			<version>${mockito.junit.jupiter.version}</version>
+		</dependency>
+
+<!--		<dependency>-->
+<!--			<groupId>org.powermock</groupId>-->
+<!--			<artifactId>powermock-module-junit4</artifactId>-->
+<!--			<version>${powermock.version}</version>-->
+<!--			<scope>test</scope>-->
+<!--		</dependency>-->
+
+<!--		<dependency>-->
+<!--			<groupId>org.powermock</groupId>-->
+<!--			<artifactId>powermock-api-mockito2</artifactId>-->
+<!--			<version>${powermock.version}</version>-->
+<!--			<scope>test</scope>-->
+<!--		</dependency>-->
+
 	</dependencies>
 
 	<build>
@@ -75,6 +115,7 @@
 							<goal>prepare-agent</goal>
 						</goals>
 					</execution>
+
 					<execution>
 						<id>report</id>
 						<phase>test</phase>

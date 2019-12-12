@@ -107,8 +107,8 @@ public interface SearchPaginationParameters {
 	 * @return True if Empty, False if Not Empty.
 	 *
 	 * @see #isNotEmpty(SearchPaginationParameters)
-	 * @see #setPageNumber(Long)
-	 * @see #setPageSize(Long)
+	 * @see #setPageNumber(Integer)
+	 * @see #setPageSize(Integer)
 	 */
 	static boolean isEmpty(SearchPaginationParameters parameters){
 		return isNull(parameters) || (
@@ -133,8 +133,8 @@ public interface SearchPaginationParameters {
 	 * @return True if Not Empty, False if Empty.
 	 *
 	 * @see #isEmpty(SearchPaginationParameters)
-	 * @see #setPageNumber(Long)
-	 * @see #setPageSize(Long)
+	 * @see #setPageNumber(Integer)
+	 * @see #setPageSize(Integer)
 	 */
 	static boolean isNotEmpty(SearchPaginationParameters parameters){
 		return !isEmpty(parameters);
