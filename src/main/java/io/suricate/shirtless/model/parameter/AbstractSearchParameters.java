@@ -1,7 +1,6 @@
 package io.suricate.shirtless.model.parameter;
 
 import io.suricate.shirtless.model.parameter.filter.SearchFilterParameters;
-import io.suricate.shirtless.model.parameter.pagination.DefaultSearchPaginationParameters;
 import io.suricate.shirtless.model.parameter.pagination.SearchPaginationParameters;
 import io.suricate.shirtless.model.parameter.sort.SearchSortParameters;
 import lombok.AllArgsConstructor;
