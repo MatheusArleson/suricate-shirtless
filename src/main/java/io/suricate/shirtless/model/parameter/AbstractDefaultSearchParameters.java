@@ -22,7 +22,7 @@ import io.suricate.shirtless.model.parameter.sort.DefaultSearchSortParameters;
  * @see DefaultSearchPaginationParameters
  * @see DefaultSearchSortParameters
  */
-public class AbstractDefaultSearchParameters<F extends SearchFilterParameters>
+public abstract class AbstractDefaultSearchParameters<F extends SearchFilterParameters>
 		extends AbstractSearchParameters<
 			F,
 			DefaultSearchPaginationParameters,

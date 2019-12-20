@@ -95,4 +95,16 @@ public interface SearchService<
 	 */
 	Map<String, String> sortMetaModel();
 
+	boolean isSearchWithEmptySearchParametersAllowed();
+	SP getFallbackSearchParametersInstance();
+
+	boolean isSearchWithEmptySearchFilterParametersAllowed();
+	F getFallbackSearchFilterParametersInstance();
+
+	boolean isSearchWithEmptySearchPaginationParametersAllowed();
+	P getFallbackSearchPaginationParametersInstance();
+
+	boolean isSearchWithEmptySearchSortParametersAllowed();
+	S getFallbackSearchSortParametersInstance();
+
 }

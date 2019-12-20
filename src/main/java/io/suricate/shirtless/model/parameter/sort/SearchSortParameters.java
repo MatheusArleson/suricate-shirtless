@@ -115,7 +115,9 @@ public interface SearchSortParameters {
 	/**
 	 * Checks if an instance of this interface is <b>Empty</b>.
 	 * <br/><br/>
-	 * Is Empty if both codes and directions arrays are null and empty.
+	 * Is Empty if both codes and directions arrays: <br/>
+	 * - are null or empty. <br/>
+	 * - have different sizes. <br/>
 	 * <br/><br/>
 	 * This is used internally to do checks before
 	 * an actual search is performed.
@@ -132,16 +134,23 @@ public interface SearchSortParameters {
 	 * @see #setSortDirections(String[])
 	 */
 	static boolean isEmpty(SearchSortParameters parameters){
-		return isNull(parameters) || (
-			Objects.isNull(parameters.getSortCodes()) ||
-			Objects.isNull(parameters.getSortDirections())
-		);
+		if(isNull(parameters)){
+			return Boolean.TRUE;
+		} else {
+			String[] sortCodes = parameters.getSortCodes();
+			String[] sortDirections = parameters.getSortDirections();
+			return Objects.isNull(sortCodes) ||
+					Objects.isNull(sortDirections) ||
+					sortCodes.length != sortDirections.length;
+		}
 	}
 
 	/**
 	 * Checks if an instance of this interface is <b>Not Empty</b>.
 	 * <br/><br/>
-	 * Is not Empty if both codes and directions arrays are not null and not empty.
+	 * Is not Empty if both codes and directions arrays: <br/>
+	 * - are not null and not empty. <br/>
+	 * - have same sizes <br/>
 	 * <br/><br/>
 	 * This is used internally to do checks before
 	 * an actual search is performed.
