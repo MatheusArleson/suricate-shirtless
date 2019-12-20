@@ -82,6 +82,7 @@ class SearchSortParametersTest {
 	void isEmpty_shouldReturnTrue_forNotNullParameterButNullSortCodes(@Mock SearchSortParameters fixtureParameters) {
 		//given
 		when(fixtureParameters.getSortCodes()).thenReturn(null);
+		when(fixtureParameters.getSortDirections()).thenReturn(new String[]{"aDirections"});
 
 		//when
 		boolean fixtureResult = SearchSortParameters.isEmpty(fixtureParameters);
@@ -89,12 +90,14 @@ class SearchSortParametersTest {
 		//then
 		assertNotNull(fixtureParameters);
 		assertNull(fixtureParameters.getSortCodes());
+		assertNotNull(fixtureParameters.getSortDirections());
 		assertTrue(fixtureResult);
 	}
 
 	@Test
 	void isEmpty_shouldReturnTrue_forNotNullParameterButNullSortDirections(@Mock SearchSortParameters fixtureParameters) {
 		//given
+		when(fixtureParameters.getSortCodes()).thenReturn(new String[]{"aCode"});
 		when(fixtureParameters.getSortDirections()).thenReturn(null);
 
 		//when
@@ -102,6 +105,7 @@ class SearchSortParametersTest {
 
 		//then
 		assertNotNull(fixtureParameters);
+		assertNotNull(fixtureParameters.getSortCodes());
 		assertNull(fixtureParameters.getSortDirections());
 		assertTrue(fixtureResult);
 	}
@@ -167,6 +171,7 @@ class SearchSortParametersTest {
 	void isNotEmpty_shouldReturnFalse_forNotNullParameterButNullSortCodes(@Mock SearchSortParameters fixtureParameters) {
 		//given
 		when(fixtureParameters.getSortCodes()).thenReturn(null);
+		when(fixtureParameters.getSortDirections()).thenReturn(new String[]{"aDirection"});
 
 		//when
 		boolean fixtureResult = SearchSortParameters.isNotEmpty(fixtureParameters);
@@ -174,12 +179,14 @@ class SearchSortParametersTest {
 		//then
 		assertNotNull(fixtureParameters);
 		assertNull(fixtureParameters.getSortCodes());
+		assertNotNull(fixtureParameters.getSortDirections());
 		assertFalse(fixtureResult);
 	}
 
 	@Test
 	void isNotEmpty_shouldReturnFalse_forNotNullParameterButNullSortDirections(@Mock SearchSortParameters fixtureParameters) {
 		//given
+		when(fixtureParameters.getSortCodes()).thenReturn(new String[]{"aCode"});
 		when(fixtureParameters.getSortDirections()).thenReturn(null);
 
 		//when
@@ -187,6 +194,7 @@ class SearchSortParametersTest {
 
 		//then
 		assertNotNull(fixtureParameters);
+		assertNotNull(fixtureParameters.getSortCodes());
 		assertNull(fixtureParameters.getSortDirections());
 		assertFalse(fixtureResult);
 	}
