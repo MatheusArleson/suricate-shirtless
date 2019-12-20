@@ -1,4 +1,4 @@
-package io.suricate.shirtless.exceptions;
+package io.suricate.shirtless.exceptions.search.parameters;
 
 public class EmptySearchPaginationParametersNotAllowed extends RuntimeException {
 
