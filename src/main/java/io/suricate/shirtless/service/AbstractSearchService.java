@@ -1,9 +1,9 @@
 package io.suricate.shirtless.service;
 
-import io.suricate.shirtless.exceptions.EmptySearchFilterParametersNotAllowed;
-import io.suricate.shirtless.exceptions.EmptySearchPaginationParametersNotAllowed;
-import io.suricate.shirtless.exceptions.EmptySearchParametersNotAllowed;
-import io.suricate.shirtless.exceptions.EmptySearchSortParametersNotAllowed;
+import io.suricate.shirtless.exceptions.search.parameters.EmptySearchFilterParametersNotAllowed;
+import io.suricate.shirtless.exceptions.search.parameters.EmptySearchPaginationParametersNotAllowed;
+import io.suricate.shirtless.exceptions.search.parameters.EmptySearchParametersNotAllowed;
+import io.suricate.shirtless.exceptions.search.parameters.EmptySearchSortParametersNotAllowed;
 import io.suricate.shirtless.model.parameter.SearchParameters;
 import io.suricate.shirtless.model.parameter.filter.SearchFilterParameters;
 import io.suricate.shirtless.model.parameter.pagination.SearchPaginationParameters;

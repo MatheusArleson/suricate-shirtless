@@ -20,9 +20,10 @@ class SearchPaginationParametersTest {
 		SearchPaginationParameters fixtureParameters = null;
 
 		//when
-		boolean fixtureResult = SearchPaginationParameters.isNull(null);
+		boolean fixtureResult = SearchPaginationParameters.isNull(fixtureParameters);
 
 		//then
+		assertNull(fixtureParameters);
 		assertTrue(fixtureResult);
 	}
 
@@ -34,6 +35,7 @@ class SearchPaginationParametersTest {
 		boolean fixtureResult = SearchPaginationParameters.isNull(fixtureParameters);
 
 		//then
+		assertNotNull(fixtureParameters);
 		assertFalse(fixtureResult);
 	}
 
@@ -45,6 +47,7 @@ class SearchPaginationParametersTest {
 		boolean fixtureResult = SearchPaginationParameters.isNotNull(fixtureParameters);
 
 		//then
+		assertNotNull(fixtureParameters);
 		assertTrue(fixtureResult);
 	}
 
@@ -57,6 +60,7 @@ class SearchPaginationParametersTest {
 		boolean fixtureResult = SearchPaginationParameters.isNotNull(fixtureParameters);
 
 		//then
+		assertNull(fixtureParameters);
 		assertFalse(fixtureResult);
 	}
 
@@ -69,6 +73,7 @@ class SearchPaginationParametersTest {
 		boolean fixtureResult = SearchPaginationParameters.isEmpty(fixtureParameters);
 
 		//then
+		assertNull(fixtureParameters);
 		assertTrue(fixtureResult);
 	}
 
@@ -105,10 +110,10 @@ class SearchPaginationParametersTest {
 		when(fixtureParameters.getPageSize()).thenReturn(2);
 
 		//when
-		assertNotNull(fixtureParameters);
 		boolean fixtureResult = SearchPaginationParameters.isEmpty(fixtureParameters);
 
 		//then
+		assertNotNull(fixtureParameters);
 		assertFalse(fixtureResult);
 	}
 
@@ -121,6 +126,7 @@ class SearchPaginationParametersTest {
 		boolean fixtureResult = SearchPaginationParameters.isNotEmpty(fixtureParameters);
 
 		//then
+		assertNull(fixtureParameters);
 		assertFalse(fixtureResult);
 
 	}
