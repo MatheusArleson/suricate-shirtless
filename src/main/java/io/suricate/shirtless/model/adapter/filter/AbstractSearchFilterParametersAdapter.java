@@ -13,7 +13,7 @@ public abstract class AbstractSearchFilterParametersAdapter<
 
 	@Override
 	public Optional<T> adaptFilter(F searchFilterParameters) {
-		if(SearchFilterParameters.isEmpty(searchFilterParameters)) {
+		if (SearchFilterParameters.isEmpty(searchFilterParameters)) {
 			return Optional.empty();
 		} else {
 			return this.generateAdapted(searchFilterParameters);

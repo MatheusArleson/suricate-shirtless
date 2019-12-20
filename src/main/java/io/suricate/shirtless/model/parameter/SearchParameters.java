@@ -103,7 +103,7 @@ public interface SearchParameters<
 	 *
 	 * @see #isNotNull(SearchParameters)
 	 */
-	static boolean isNull(SearchParameters parameters){
+	static boolean isNull(SearchParameters parameters) {
 		return Objects.isNull(parameters);
 	}
 
@@ -122,7 +122,7 @@ public interface SearchParameters<
 	 *
 	 * @see #isNull(SearchParameters)
 	 */
-	static boolean isNotNull(SearchParameters parameters){
+	static boolean isNotNull(SearchParameters parameters) {
 		return !isNull(parameters);
 	}
 
@@ -150,11 +150,11 @@ public interface SearchParameters<
 	 * @see SearchSortParameters#isEmpty(SearchSortParameters)
 	 *
 	 */
-	static boolean isEmpty(SearchParameters parameters){
+	static boolean isEmpty(SearchParameters parameters) {
 		return isNull(parameters) || (
-			SearchFilterParameters.isEmpty(parameters.getFilterParameters()) &&
-			SearchPaginationParameters.isEmpty(parameters.getPaginationParameters()) &&
-			SearchSortParameters.isEmpty(parameters.getSortParameters())
+			SearchFilterParameters.isEmpty(parameters.getFilterParameters())
+			&& SearchPaginationParameters.isEmpty(parameters.getPaginationParameters())
+			&& SearchSortParameters.isEmpty(parameters.getSortParameters())
 		);
 	}
 
@@ -182,7 +182,7 @@ public interface SearchParameters<
 	 * @see SearchSortParameters#isEmpty(SearchSortParameters)
 	 *
 	 */
-	static boolean isNotEmpty(SearchParameters parameters){
+	static boolean isNotEmpty(SearchParameters parameters) {
 		return !isEmpty(parameters);
 	}
 

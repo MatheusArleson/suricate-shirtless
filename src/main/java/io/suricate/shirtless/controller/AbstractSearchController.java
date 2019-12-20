@@ -5,7 +5,11 @@ import io.suricate.shirtless.model.parameter.filter.SearchFilterParameters;
 import io.suricate.shirtless.model.parameter.pagination.SearchPaginationParameters;
 import io.suricate.shirtless.model.parameter.sort.SearchSortParameters;
 import io.suricate.shirtless.service.SearchService;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.Setter;
 
 import java.util.Collection;
 import java.util.Map;

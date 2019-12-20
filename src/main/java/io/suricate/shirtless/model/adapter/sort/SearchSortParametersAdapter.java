@@ -31,8 +31,7 @@ public interface SearchSortParametersAdapter<S extends SearchSortParameters, T> 
 	 *
 	 *
 	 * @param searchSortParameters the instance to be adapted
-	 * @return Empty Optional if parameter is empty OR cannot be adapted;
-	 * Optional Containing the adapted object otherwise.
+	 * @return Empty Optional if parameter is empty OR cannot be adapted; Optional Containing the adapted object otherwise.
 	 *
 	 */
 	Optional<T> adaptSort(S searchSortParameters);

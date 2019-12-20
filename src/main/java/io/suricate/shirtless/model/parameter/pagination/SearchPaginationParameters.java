@@ -68,7 +68,7 @@ public interface SearchPaginationParameters {
 	 *
 	 * @see #isNotNull(SearchPaginationParameters)
 	 */
-	static boolean isNull(SearchPaginationParameters parameters){
+	static boolean isNull(SearchPaginationParameters parameters) {
 		return Objects.isNull(parameters);
 	}
 
@@ -110,10 +110,10 @@ public interface SearchPaginationParameters {
 	 * @see #setPageNumber(Integer)
 	 * @see #setPageSize(Integer)
 	 */
-	static boolean isEmpty(SearchPaginationParameters parameters){
+	static boolean isEmpty(SearchPaginationParameters parameters) {
 		return isNull(parameters) || (
-			Objects.isNull(parameters.getPageNumber()) ||
-			Objects.isNull(parameters.getPageSize())
+			Objects.isNull(parameters.getPageNumber())
+			|| Objects.isNull(parameters.getPageSize())
 		);
 	}
 
@@ -136,7 +136,7 @@ public interface SearchPaginationParameters {
 	 * @see #setPageNumber(Integer)
 	 * @see #setPageSize(Integer)
 	 */
-	static boolean isNotEmpty(SearchPaginationParameters parameters){
+	static boolean isNotEmpty(SearchPaginationParameters parameters) {
 		return !isEmpty(parameters);
 	}
 

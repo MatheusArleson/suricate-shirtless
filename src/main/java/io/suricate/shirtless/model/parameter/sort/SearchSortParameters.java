@@ -89,7 +89,7 @@ public interface SearchSortParameters {
 	 *
 	 * @see #isNotNull(SearchSortParameters)
 	 */
-	static boolean isNull(SearchSortParameters parameters){
+	static boolean isNull(SearchSortParameters parameters) {
 		return Objects.isNull(parameters);
 	}
 
@@ -133,15 +133,15 @@ public interface SearchSortParameters {
 	 * @see #setSortCodes(String[])
 	 * @see #setSortDirections(String[])
 	 */
-	static boolean isEmpty(SearchSortParameters parameters){
-		if(isNull(parameters)){
+	static boolean isEmpty(SearchSortParameters parameters) {
+		if (isNull(parameters)) {
 			return Boolean.TRUE;
 		} else {
 			String[] sortCodes = parameters.getSortCodes();
 			String[] sortDirections = parameters.getSortDirections();
-			return Objects.isNull(sortCodes) ||
-					Objects.isNull(sortDirections) ||
-					sortCodes.length != sortDirections.length;
+			return Objects.isNull(sortCodes)
+				|| Objects.isNull(sortDirections)
+				|| sortCodes.length != sortDirections.length;
 		}
 	}
 
@@ -166,7 +166,7 @@ public interface SearchSortParameters {
 	 * @see #setSortCodes(String[])
 	 * @see #setSortDirections(String[])
 	 */
-	static boolean isNotEmpty(SearchSortParameters parameters){
+	static boolean isNotEmpty(SearchSortParameters parameters) {
 		return !isEmpty(parameters);
 	}
 

@@ -13,15 +13,19 @@ public interface SearchParametersSupervisor<
 		> {
 
 	boolean isSearchWithEmptySearchParametersAllowed();
+
 	SP getFallbackSearchParametersInstance();
 
 	boolean isSearchWithEmptySearchFilterParametersAllowed();
+
 	F getFallbackSearchFilterParametersInstance();
 
 	boolean isSearchWithEmptySearchPaginationParametersAllowed();
+
 	P getFallbackSearchPaginationParametersInstance();
 
 	boolean isSearchWithEmptySearchSortParametersAllowed();
+
 	S getFallbackSearchSortParametersInstance();
 
 }

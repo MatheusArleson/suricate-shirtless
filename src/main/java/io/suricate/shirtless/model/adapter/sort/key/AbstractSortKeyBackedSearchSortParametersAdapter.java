@@ -25,13 +25,13 @@ public abstract class AbstractSortKeyBackedSearchSortParametersAdapter<
 	@Override
 	protected Optional<T> generateAdapted(String[] sortCodes, String[] sortDirections) {
 		String[] searchSortKeysValues = Arrays.stream(sortCodes)
-				.map((sortCode) ->  this.getSortKeyAdapter().adaptSortKeyCode(sortCode))
+				.map((sortCode) -> this.getSortKeyAdapter().adaptSortKeyCode(sortCode))
 				.filter(Optional::isPresent)
 				.map(Optional::get)
 				.map(SearchSortKey::getValue)
 				.toArray(String[]::new);
 
-		if(searchSortKeysValues.length != sortCodes.length){
+		if (searchSortKeysValues.length != sortCodes.length) {
 			return Optional.empty();
 		}
 

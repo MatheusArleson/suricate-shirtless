@@ -13,7 +13,9 @@ public interface AdaptedSearchParametersSupervisor<
 		> extends SearchParametersSupervisor<F, P, S, SP> {
 
 	boolean isSearchWithEmptyAdaptedSearchFilterParametersAllowed();
+
 	boolean isSearchWithEmptyAdaptedSearchPaginationParametersAllowed();
+
 	boolean isSearchWithEmptyAdaptedSearchSortParametersAllowed();
 
 }

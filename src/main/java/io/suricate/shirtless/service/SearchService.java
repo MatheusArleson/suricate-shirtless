@@ -12,7 +12,7 @@ import java.util.Map;
  * Base interface for Search Services.
  * <br/><br/>
  * Instances will provide to upstream a single point for all search related functionality.
- *
+ * <br/><br/>
  * Search Service uses the concept of <b>Generics.</b> <br/>
  * In other words, implementations can vary the actual type of each aspect
  * as long as the base interfaces are implemented by the custom objects.
@@ -96,15 +96,19 @@ public interface SearchService<
 	Map<String, String> sortMetaModel();
 
 	boolean isSearchWithEmptySearchParametersAllowed();
+
 	SP getFallbackSearchParametersInstance();
 
 	boolean isSearchWithEmptySearchFilterParametersAllowed();
+
 	F getFallbackSearchFilterParametersInstance();
 
 	boolean isSearchWithEmptySearchPaginationParametersAllowed();
+
 	P getFallbackSearchPaginationParametersInstance();
 
 	boolean isSearchWithEmptySearchSortParametersAllowed();
+
 	S getFallbackSearchSortParametersInstance();
 
 }

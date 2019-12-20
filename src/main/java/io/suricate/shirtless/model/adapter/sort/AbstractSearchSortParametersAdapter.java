@@ -13,7 +13,7 @@ public abstract class AbstractSearchSortParametersAdapter<
 
 	@Override
 	public Optional<T> adaptSort(S searchSortParameters) {
-		if(SearchSortParameters.isEmpty(searchSortParameters)){
+		if (SearchSortParameters.isEmpty(searchSortParameters)) {
 			return Optional.empty();
 		} else {
 			return this.generateAdapted(

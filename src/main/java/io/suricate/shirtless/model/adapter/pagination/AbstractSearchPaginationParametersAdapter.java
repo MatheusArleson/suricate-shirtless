@@ -13,7 +13,7 @@ public abstract class AbstractSearchPaginationParametersAdapter<
 
 	@Override
 	public Optional<T> adaptPagination(P searchPaginationParameters) {
-		if(SearchPaginationParameters.isEmpty(searchPaginationParameters)){
+		if (SearchPaginationParameters.isEmpty(searchPaginationParameters)) {
 			return Optional.empty();
 		} else {
 			return this.generateAdapted(

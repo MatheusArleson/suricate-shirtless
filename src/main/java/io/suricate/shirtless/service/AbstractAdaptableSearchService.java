@@ -31,8 +31,8 @@ public abstract class AbstractAdaptableSearchService<
 	private final SA searchParametersAdapter;
 
 	public AbstractAdaptableSearchService(
-		@NonNull SU searchParamsSupervisor,
-		@NonNull SA searchParametersAdapter
+			@NonNull SU searchParamsSupervisor,
+			@NonNull SA searchParametersAdapter
 	) {
 		super(searchParamsSupervisor);
 		this.searchParametersAdapter = searchParametersAdapter;
@@ -63,10 +63,10 @@ public abstract class AbstractAdaptableSearchService<
 	private FT adaptFilterParameters(F filterParameters) {
 		Optional<FT> adaptedFilterOpt = this.getSearchParametersAdapter().adaptFilter(filterParameters);
 
-		if(adaptedFilterOpt.isPresent()){
+		if (adaptedFilterOpt.isPresent()) {
 			return adaptedFilterOpt.get();
 		} else {
-			if(this.getSearchParamsSupervisor().isSearchWithEmptyAdaptedSearchFilterParametersAllowed()){
+			if (this.getSearchParamsSupervisor().isSearchWithEmptyAdaptedSearchFilterParametersAllowed()) {
 				return null;
 			} else {
 				throw new EmptyAdaptedSearchFilterParametersNotAllowed("Search with empty adapted filter parameters is not allowed.");
@@ -77,10 +77,10 @@ public abstract class AbstractAdaptableSearchService<
 	private PT adaptPaginationParameters(P paginationParameters) {
 		Optional<PT> adaptedPaginationOpt = this.getSearchParametersAdapter().adaptPagination(paginationParameters);
 
-		if(adaptedPaginationOpt.isPresent()){
+		if (adaptedPaginationOpt.isPresent()) {
 			return adaptedPaginationOpt.get();
 		} else {
-			if(this.getSearchParamsSupervisor().isSearchWithEmptyAdaptedSearchPaginationParametersAllowed()){
+			if (this.getSearchParamsSupervisor().isSearchWithEmptyAdaptedSearchPaginationParametersAllowed()) {
 				return null;
 			} else {
 				throw new EmptyAdaptedSearchPaginationParametersNotAllowed("Search with empty adapted pagination parameters is not allowed.");
@@ -91,10 +91,10 @@ public abstract class AbstractAdaptableSearchService<
 	private ST adaptSortParameters(S sortParameters) {
 		Optional<ST> adaptedSortOpt = this.getSearchParametersAdapter().adaptSort(sortParameters);
 
-		if(adaptedSortOpt.isPresent()){
+		if (adaptedSortOpt.isPresent()) {
 			return adaptedSortOpt.get();
 		} else {
-			if(this.getSearchParamsSupervisor().isSearchWithEmptyAdaptedSearchSortParametersAllowed()){
+			if (this.getSearchParamsSupervisor().isSearchWithEmptyAdaptedSearchSortParametersAllowed()) {
 				return null;
 			} else {
 				throw new EmptyAdaptedSearchSortParametersNotAllowed("Search with empty adapted sort parameters is not allowed.");

@@ -16,7 +16,7 @@ public abstract class AbstractSearchParametersSupervisor<
 			P extends SearchPaginationParameters,
 			S extends SearchSortParameters,
 			SP extends SearchParameters<F, P, S>
-		> implements SearchParametersSupervisor<F, P, S, SP>{
+		> implements SearchParametersSupervisor<F, P, S, SP> {
 
 	private final boolean searchWithEmptySearchParametersAllowed;
 	@Getter(AccessLevel.PROTECTED)

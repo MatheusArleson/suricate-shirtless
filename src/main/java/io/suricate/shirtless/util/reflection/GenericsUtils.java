@@ -8,19 +8,20 @@ import java.util.Optional;
 
 public class GenericsUtils {
 
-	public static Optional<Type> getGenericType(@NonNull Class<?> aClass, int genericsIndex) {
-		if(genericsIndex < 0){
+	public static Optional<Type> getGenericType(@NonNull Class<?> clazz, int genericsIndex) {
+		if (genericsIndex < 0) {
 			throw new IllegalArgumentException("Generics index must be greater than zero.");
 		}
 
-		ParameterizedType genericSuperclass = (ParameterizedType) aClass.getGenericSuperclass();
+		ParameterizedType genericSuperclass = (ParameterizedType) clazz.getGenericSuperclass();
 		Type[] actualTypeArguments = genericSuperclass.getActualTypeArguments();
 
-		if(genericsIndex > actualTypeArguments.length){
+		if (genericsIndex > actualTypeArguments.length) {
 			throw new IllegalArgumentException("Generics index is out of bounds.");
 		}
 
 		Type actualTypeArgument = actualTypeArguments[genericsIndex];
 		return Optional.of(actualTypeArgument);
 	}
+
 }

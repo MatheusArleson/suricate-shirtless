@@ -46,10 +46,10 @@ public abstract class AbstractSearchService<
 	protected abstract Collection<O> search(F filterParameters, P paginationParameters, S sortParameters);
 
 	private SP safeGetSearchParameters(SP searchParameters) {
-		if(SearchParameters.isNotEmpty(searchParameters)){
+		if (SearchParameters.isNotEmpty(searchParameters)) {
 			return searchParameters;
 		} else {
-			if(this.isSearchWithEmptySearchParametersAllowed()){
+			if (this.isSearchWithEmptySearchParametersAllowed()) {
 				return this.getFallbackSearchParametersInstance();
 			} else {
 				throw new EmptySearchParametersNotAllowed("Search with empty parameters is not allowed.");
@@ -58,10 +58,10 @@ public abstract class AbstractSearchService<
 	}
 
 	private F safeGetFilterParameters(F searchFilterParameters) {
-		if(SearchFilterParameters.isNotEmpty(searchFilterParameters)){
+		if (SearchFilterParameters.isNotEmpty(searchFilterParameters)) {
 			return searchFilterParameters;
 		} else {
-			if(this.isSearchWithEmptySearchFilterParametersAllowed()){
+			if (this.isSearchWithEmptySearchFilterParametersAllowed()) {
 				return this.getFallbackSearchFilterParametersInstance();
 			} else {
 				throw new EmptySearchFilterParametersNotAllowed("Search with empty filter parameters is not allowed.");
@@ -70,10 +70,10 @@ public abstract class AbstractSearchService<
 	}
 
 	private P safeGetPaginationParameters(P searchPaginationParameters) {
-		if(SearchPaginationParameters.isNotEmpty(searchPaginationParameters)){
+		if (SearchPaginationParameters.isNotEmpty(searchPaginationParameters)) {
 			return searchPaginationParameters;
 		} else {
-			if(this.isSearchWithEmptySearchPaginationParametersAllowed()){
+			if (this.isSearchWithEmptySearchPaginationParametersAllowed()) {
 				return this.getFallbackSearchPaginationParametersInstance();
 			} else {
 				throw new EmptySearchPaginationParametersNotAllowed("Search with empty pagination parameters is not allowed.");
@@ -82,10 +82,10 @@ public abstract class AbstractSearchService<
 	}
 
 	private S safeGetSortParameters(S searchSortParameters) {
-		if(SearchSortParameters.isNotEmpty(searchSortParameters)){
+		if (SearchSortParameters.isNotEmpty(searchSortParameters)) {
 			return searchSortParameters;
 		} else {
-			if(this.isSearchWithEmptySearchSortParametersAllowed()){
+			if (this.isSearchWithEmptySearchSortParametersAllowed()) {
 				return this.getFallbackSearchSortParametersInstance();
 			} else {
 				throw new EmptySearchSortParametersNotAllowed("Search with empty sort parameters is not allowed.");

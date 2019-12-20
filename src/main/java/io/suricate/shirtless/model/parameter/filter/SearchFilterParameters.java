@@ -55,7 +55,7 @@ public interface SearchFilterParameters {
 	 *
 	 * @see #isNotNull(SearchFilterParameters)
 	 */
-	static boolean isNull(SearchFilterParameters parameters){
+	static boolean isNull(SearchFilterParameters parameters) {
 		return Objects.isNull(parameters);
 	}
 
@@ -96,7 +96,7 @@ public interface SearchFilterParameters {
 	 *
 	 * @see #isNotEmpty(SearchFilterParameters)
 	 */
-	static boolean isEmpty(SearchFilterParameters parameters){
+	static boolean isEmpty(SearchFilterParameters parameters) {
 		return isNull(parameters) || parameters.isEmpty();
 	}
 
@@ -118,7 +118,7 @@ public interface SearchFilterParameters {
 	 *
 	 * @see #isEmpty(SearchFilterParameters)
 	 */
-	static boolean isNotEmpty(SearchFilterParameters parameters){
+	static boolean isNotEmpty(SearchFilterParameters parameters) {
 		return !isEmpty(parameters);
 	}
 

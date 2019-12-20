@@ -27,7 +27,7 @@ public abstract class AbstractEnumBackedSearchSortKeyAdapter<
 
 	@Override
 	public Optional<SearchSortKey> adaptSortKeyCode(String code) {
-		if(Objects.isNull(code) || code.isEmpty()){
+		if (Objects.isNull(code) || code.isEmpty()) {
 			return Optional.empty();
 		} else {
 			SearchSortKey enumMemberWithSameCode = this.getEnumMemberWithSameCode(code);
@@ -41,11 +41,11 @@ public abstract class AbstractEnumBackedSearchSortKeyAdapter<
 	}
 
 	private Map<String, SearchSortKey> getCodeToEnumMemberMap() {
-		if(Objects.isNull(this.codeToEnumMemberMap)){
+		if (Objects.isNull(this.codeToEnumMemberMap)) {
 			SearchSortKey[] enumMembers = this.getAllEnumMembers();
 			Map<String, SearchSortKey> map = Arrays.stream(enumMembers).collect(Collectors.toMap(
-				SearchSortKey::getCode,
-				(searchSortKey -> searchSortKey)
+					SearchSortKey::getCode,
+					(searchSortKey -> searchSortKey)
 			));
 
 			this.codeToEnumMemberMap = map;
@@ -57,13 +57,13 @@ public abstract class AbstractEnumBackedSearchSortKeyAdapter<
 	@SuppressWarnings("unchecked")
 	private SearchSortKey[] getAllEnumMembers() {
 		Optional<Type> declaredEnumTypeOpt = GenericsUtils.getGenericType(this.getClass(), ENUM_CLASS_GENERICS_INDEX);
-		if(!declaredEnumTypeOpt.isPresent()) {
+		if (!declaredEnumTypeOpt.isPresent()) {
 			throw new IllegalStateException("Unable to get enum class from generics.");
 		}
 
 		Class<T> declaredEnumClass = (Class<T>) declaredEnumTypeOpt.get();
 		T[] enumConstants = declaredEnumClass.getEnumConstants();
-		if(Objects.nonNull(enumConstants) && enumConstants.length > 0){
+		if (Objects.nonNull(enumConstants) && enumConstants.length > 0) {
 			return enumConstants;
 		} else {
 			throw new IllegalStateException("Unable to get enum members from class on generics.");
