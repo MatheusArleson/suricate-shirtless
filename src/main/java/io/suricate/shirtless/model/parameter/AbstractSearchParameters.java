@@ -9,10 +9,10 @@ import lombok.NoArgsConstructor;
 
 /**
  * Base abstraction for Search Parameters implementations.
- * <br/><br/>
+ * <p>
  * Extensions of this class can add behaviour
  * while keeping the interface contract intact.
- * <br/><br/>
+ * <p>
  * <b>Note about constructors:</b> If Dependency Injection is used,
  * the No-Args constructor <b>SHOULD</b> be visible on the implementation.
  * This is due to construction/initialization on Dependency Inversion Frameworks

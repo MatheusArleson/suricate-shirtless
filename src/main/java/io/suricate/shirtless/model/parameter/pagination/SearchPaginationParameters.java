@@ -6,16 +6,16 @@ import java.util.Objects;
 
 /**
  * Base interface for Pagination Parameters of an Search.
- * <br/><br/>
+ * <p>
  * Instances will hold the values of pagination be used on the Search itself.
- * <br/><br/>
+ * <p>
  * Pagination has a concept of Page, and requests can be done
- * for a specific page of an specific size. <br/>
+ * for a specific page of an specific size.
  * Offsets can be achieved by adjusting both page properties.
- * <br/><br/>
+ * <p>
  * <b>Example:</b> A request for the 10th record can be done as:
- * Page 1 of Size 10 <br/>
- * OR Page 2 of size 5 <br/>
+ * Page 1 of Size 10 <br>
+ * OR Page 2 of size 5 <br>
  * OR Page 10 of Size 1.
  *
  * @see AbstractSearchPaginationParameters
@@ -55,10 +55,10 @@ public interface SearchPaginationParameters {
 
 	/**
 	 * Checks if an instance of this interface is <b>Null</b>.
-	 * <br/><br/>
+	 * <p>
 	 * This is used internally to do checks before
 	 * an actual search is performed.
-	 * <br/><br/>
+	 * <p>
 	 * Example:
 	 * Null/Empty pagination parameters can be refused
 	 * OR a fallback default could be set.
@@ -74,10 +74,10 @@ public interface SearchPaginationParameters {
 
 	/**
 	 * Checks if an instance of this interface is <b>Not Null</b>.
-	 * <br/><br/>
+	 * <p>
 	 * This is used internally to do checks before
 	 * an actual search is performed.
-	 * <br/><br/>
+	 * <p>
 	 * Example:
 	 * Null/Empty pagination parameters can be refused
 	 * OR a fallback default could be set.
@@ -93,12 +93,12 @@ public interface SearchPaginationParameters {
 
 	/**
 	 * Checks if an instance of this interface is <b>Empty</b>.
-	 * <br/><br/>
+	 * <p>
 	 * Is Empty if at least one of the Pagination Parameters is null.
-	 * <br/><br/>
+	 * <p>
 	 * This is used internally to do checks before
 	 * an actual search is performed.
-	 * <br/><br/>
+	 * <p>
 	 * Example:
 	 * Null/Empty pagination parameters can be refused
 	 * OR a fallback default could be set.
@@ -119,12 +119,12 @@ public interface SearchPaginationParameters {
 
 	/**
 	 * Checks if an instance of this interface is <b>Not Empty</b>.
-	 * <br/><br/>
+	 * <p>
 	 * Is Not Empty if all of the Pagination Parameters is not null and have values.
-	 * <br/><br/>
+	 * <p>
 	 * This is used internally to do checks before
 	 * an actual search is performed.
-	 * <br/><br/>
+	 * <p>
 	 * Example:
 	 * Null/Empty pagination parameters can be refused
 	 * OR a fallback default could be set.

@@ -6,14 +6,14 @@ import java.util.Optional;
 
 /**
  * Base interface for adaptation of an Search Sort Parameters.
- * <br/><br/>
+ * <p>
  * Instances should focus on the adaptation of the {@link SearchSortParameters}
  * to the Target class defined in the class generics.
- * <br/><br/>
- * The Target class is the object that another layer can work with. <br/>
+ * <p>
+ * The Target class is the object that another layer can work with.
  * Eg. Spring cannot understand {@link SearchSortParameters}, so we need to adapt to an
  * Pageable.Sort class instance.
- * <br/><br/>
+ * <p>
  * Adapter Design Pattern: http://www.tutorialspoint.com/design_pattern/adapter_pattern.htm
  *
  * @param <S> Class of the Search Sort Parameters
@@ -27,7 +27,7 @@ public interface SearchSortParametersAdapter<S extends SearchSortParameters, T> 
 	/**
 	 * Adapts an {@link SearchSortParameters} to an Target type defined
 	 * by class generics.
-	 * <br/><br/>
+	 * <p>
 	 *
 	 *
 	 * @param searchSortParameters the instance to be adapted

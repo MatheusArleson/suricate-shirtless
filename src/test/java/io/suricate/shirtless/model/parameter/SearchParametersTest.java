@@ -182,8 +182,8 @@ class SearchParametersTest {
 
 	@Test
 	void isNotEmpty_shouldReturnTrue_forNotEmptyFilterParameters(
-			@Mock SearchParameters fixtureParameters,
-			@Mock SearchFilterParameters fixtureFilterParameters
+		@Mock SearchParameters fixtureParameters,
+		@Mock SearchFilterParameters fixtureFilterParameters
 	) {
 		//given
 		when(fixtureFilterParameters.isEmpty()).thenReturn(false);
@@ -200,8 +200,8 @@ class SearchParametersTest {
 
 	@Test
 	void isNotEmpty_shouldReturnTrue_forNotEmptyPaginationParameters(
-			@Mock SearchParameters fixtureParameters,
-			@Mock SearchPaginationParameters fixturePaginationParameters
+		@Mock SearchParameters fixtureParameters,
+		@Mock SearchPaginationParameters fixturePaginationParameters
 	) {
 		//given
 		when(fixturePaginationParameters.getPageNumber()).thenReturn(0);
@@ -219,8 +219,8 @@ class SearchParametersTest {
 
 	@Test
 	void isNotEmpty_shouldReturnTrue_forNotEmptySortParameters(
-			@Mock SearchParameters fixtureParameters,
-			@Mock SearchSortParameters fixtureSortParameters
+		@Mock SearchParameters fixtureParameters,
+		@Mock SearchSortParameters fixtureSortParameters
 	) {
 		//given
 		when(fixtureSortParameters.getSortCodes()).thenReturn(new String[]{"aCode"});

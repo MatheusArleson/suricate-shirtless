@@ -11,12 +11,13 @@ import java.util.Map;
 
 /**
  * Base interface for Search Controllers.
- * <br/><br/>
- * Instances will have methods to cover most of search use cases out of the box. <br/>
- * Search Controller uses the concept of <b>Generics.</b> <br/>
+ * <p>
+ * Instances will have methods to cover most of search use cases out of the box.
+ * <p>
+ * Search Controller uses the concept of <b>Generics.</b>
  * In other words, implementations can vary the actual type of each aspect (filter, pagination and sort)
  * as long as the base interfaces are implemented by the custom objects.
- * <br/><br/>
+ * <p>
  * Search Controller delegates operations - by default - to the Search Service Class provided on generics.
  *
  * @param <O> Output Class of Search Results
@@ -38,7 +39,7 @@ public interface SearchController<
 
 	/**
 	 * Expose the total number of Search Results Possible.
-	 * <br/><br/>
+	 * <p>
 	 * For this method, does not make sense to pass any parameters.
 	 *
 	 * @return the total number of Search Results possible.
@@ -47,20 +48,21 @@ public interface SearchController<
 
 	/**
 	 * Counts the number of Search Results that match the Search Parameters.
-	 * <br/><br/>
-	 * For this method, only the filter aspect of the Search Parameters is important. <br/>
+	 * <p>
+	 * For this method, only the filter aspect of the Search Parameters is important.
 	 * Other aspects, pagination/sorting, should not be considered.
 	 *
+	 * @param searchParameters an Search Parameters to be used.
 	 * @return the total number of Search Results that match the Search Parameters.
 	 */
 	Long count(SP searchParameters);
 
 	/**
 	 * Gets the Search Results that match the Search Parameters.
-	 * <br/><br/>
-	 * For this method, all aspects of the Search Parameters should be evaluated. <br/>
-	 * <br/><br/>
-	 * The type of the Search Results are defined be the generic parameter of this interface. <br/>
+	 * <p>
+	 * For this method, all aspects of the Search Parameters should be evaluated.
+	 * <p>
+	 * The type of the Search Results are defined be the generic parameter of this interface.
 	 * Allowing implementations to pass any desired class.
 	 *
 	 * @param searchParameters an Search Parameters to be used.
@@ -70,8 +72,8 @@ public interface SearchController<
 
 	/**
 	 * Exposes the model of the Search Filter Parameters in key-value format.
-	 * <br/><br/>
-	 * This method allows introspection of the available filter by clients. <br/>
+	 * <p>
+	 * This method allows introspection of the available filter by clients.
 	 * Eg. A Client that never used the API should be able to get information about the available filter parameters.
 	 *
 	 * @return {@link Map} of parameter name to parameter description.
@@ -80,8 +82,8 @@ public interface SearchController<
 
 	/**
 	 * Exposes the model of the Search Pagination Parameters in key-value format.
-	 * <br/><br/>
-	 * This method allows introspection of the available pagination by clients. <br/>
+	 * <p>
+	 * This method allows introspection of the available pagination by clients.
 	 * Eg. A Client that never used the API should be able to get information about the available pagination parameters.
 	 *
 	 * @return {@link Map} of parameter name to parameter description.
@@ -90,8 +92,8 @@ public interface SearchController<
 
 	/**
 	 * Exposes the model of the Search Sort Parameters in key-value format.
-	 * <br/><br/>
-	 * This method allows introspection of the available sort by clients. <br/>
+	 * <p>
+	 * This method allows introspection of the available sort by clients.
 	 * Eg. A Client that never used the API should be able to get information about the available sort parameters.
 	 *
 	 * @return {@link Map} of parameter name to parameter description.

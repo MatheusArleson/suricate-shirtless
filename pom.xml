@@ -39,8 +39,10 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
 
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<encoding>UTF-8</encoding>
+		<project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>${encoding}</project.reporting.outputEncoding>
+		<javadoc.maven.plugin.encoding>${encoding}</javadoc.maven.plugin.encoding>
 
 		<lombok.version>1.18.10</lombok.version>
 
@@ -54,6 +56,8 @@
 		<jacoco.maven.plugin.version>0.8.5</jacoco.maven.plugin.version>
 		<site.maven.plugin.version>3.8.2</site.maven.plugin.version>
 		<project.info.reports.maven.plugin.version>3.0.0</project.info.reports.maven.plugin.version>
+		<javadoc.maven.plugin.version>3.1.1</javadoc.maven.plugin.version>
+		<javadoc.doclet.report.maven.plugin.version>1.1.0</javadoc.doclet.report.maven.plugin.version>
 
 	</properties>
 
@@ -165,6 +169,12 @@
 					</dependency>
 				</dependencies>
 			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>${javadoc.maven.plugin.version}</version>
+			</plugin>
 		</plugins>
 	</build>
 
@@ -177,6 +187,47 @@
 				<configuration>
 					<configLocation>checkstyle.xml</configLocation>
 				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>${javadoc.maven.plugin.version}</version>
+				<reportSets>
+					<reportSet>
+						<!-- Exports JavaDocs to regular HTML files -->
+						<id>javadoc-html</id>
+						<reports>
+							<report>javadoc</report>
+						</reports>
+						<configuration>
+							<encoding>${javadoc.maven.plugin.encoding}</encoding>
+						</configuration>
+					</reportSet>
+
+					<reportSet>
+						<!-- Generates the JavaDoc coverage report -->
+						<id>javadoc-coverage</id>
+						<reports>
+							<report>javadoc</report>
+						</reports>
+						<configuration>
+							<name>JavaDoc Coverage</name>
+							<description>Percentage of the code coverage by JavaDoc documentation.</description>
+							<encoding>${javadoc.maven.plugin.encoding}</encoding>
+							<doclet>com.manoelcampos.javadoc.coverage.CoverageDoclet</doclet>
+							<docletArtifact>
+								<groupId>com.manoelcampos</groupId>
+								<artifactId>javadoc-coverage</artifactId>
+								<version>${javadoc.doclet.report.maven.plugin.version}</version>
+							</docletArtifact>
+							<destDir>javadoc-coverage</destDir>
+							<additionalOptions>
+								<additionalOption>-outputName "index.html"</additionalOption>
+							</additionalOptions>
+						</configuration>
+					</reportSet>
+				</reportSets>
 			</plugin>
 		</plugins>
 	</reporting>

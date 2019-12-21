@@ -7,14 +7,14 @@ import java.util.Optional;
 
 /**
  * Base interface for adaptation of an Search Filter Parameters.
- * <br/><br/>
+ * <p>
  * Instances should focus on the adaptation of the {@link SearchFilterParameters}
  * to the Target class defined in the class generics.
- * <br/><br/>
- * The Target class is the object that another layer can work with. <br/>
+ * <p>
+ * The Target class is the object that another layer can work with.
  * Eg. Spring cannot understand {@link SearchFilterParameters}, so we need to adapt to an
  * Specification class instance.
- * <br/><br/>
+ * <p>
  * Adapter Design Pattern: http://www.tutorialspoint.com/design_pattern/adapter_pattern.htm
  *
  * @param <F> Class of the Search Sort Parameters
@@ -28,7 +28,7 @@ public interface SearchFilterParametersAdapter<F extends SearchFilterParameters,
 	/**
 	 * Adapts an {@link SearchFilterParameters} to an Target type defined
 	 * by class generics.
-	 * <br/><br/>
+	 * <p>
 	 *
 	 *
 	 * @param searchFilterParameters the instance to be adapted

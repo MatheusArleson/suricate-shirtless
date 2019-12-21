@@ -8,20 +8,20 @@ import java.util.Objects;
 
 /**
  * Base interface for Search Parameters.
- * <br/><br/>
+ * <p>
  * Instances will hold filter, pagination and sort information to be used on the Search.
- * <br/><br/>
- * Search parameters uses the concept of <b>Generics.</b> <br/>
+ * <p>
+ * Search parameters uses the concept of <b>Generics.</b>
  * In other words, implementations can vary the actual type of each aspect (filter, pagination and sort)
  * as long as the base interfaces are implemented by the custom objects.
- * <br/><br/>
- * Search parameters has the concept of <b>ignore</b>. <br/>
- * If any parameter is null, it means that search parameter does not want that aspect to be used. <br/>
+ * <p>
+ * Search parameters has the concept of <b>ignore</b>.
+ * If any parameter is null, it means that search parameter does not want that aspect to be used.
  * Implementations should not forbid null parameters to be passed. Consumers of the Search Parameters instance are
  * the ones responsible for defining if a particular instance is acceptable of not.
  * Eg. If sort parameters are null, means that search should not be sorted.
  * Eg. If service A accepts empty sorting, than it should accept a search with null sort parameters.
- * <br/><br/>
+ * <p>
  *
  * @param <F> Type of the Filter - Anything that extends {@link SearchFilterParameters}
  * @param <P> Type of the Pagination - Anything that extends {@link SearchPaginationParameters}
@@ -41,7 +41,7 @@ public interface SearchParameters<
 		> {
 
 	/**
-	 * Gets the instance of Filter Parameters to be used on this Search Parameters. <br/>
+	 * Gets the instance of Filter Parameters to be used on this Search Parameters.
 	 * Null value means that Search should not consider filtering.
 	 *
 	 * @return the current Filter Parameters.
@@ -49,7 +49,7 @@ public interface SearchParameters<
 	F getFilterParameters();
 
 	/**
-	 * Sets the instance of Filter Parameters to be used on this Search Parameters. <br/>
+	 * Sets the instance of Filter Parameters to be used on this Search Parameters.
 	 * Null value means that Search should not consider filtering.
 	 *
 	 * @param filterParameters an Filter Parameters instance.
@@ -57,7 +57,7 @@ public interface SearchParameters<
 	void setFilterParameters(F filterParameters);
 
 	/**
-	 * Gets the instance of Pagination Parameters to be used on this Search Parameters. <br/>
+	 * Gets the instance of Pagination Parameters to be used on this Search Parameters.
 	 * Null value means that Search should not consider pagination.
 	 *
 	 * @return the current Pagination Parameters.
@@ -65,7 +65,7 @@ public interface SearchParameters<
 	P getPaginationParameters();
 
 	/**
-	 * Sets the instance of Pagination Parameters to be used on this Search Parameters. <br/>
+	 * Sets the instance of Pagination Parameters to be used on this Search Parameters.
 	 * Null value means that Search should not consider pagination.
 	 *
 	 * @param paginationParameters an Pagination Parameters instance.
@@ -73,7 +73,7 @@ public interface SearchParameters<
 	void setPaginationParameters(P paginationParameters);
 
 	/**
-	 * Gets the instance of Sort Parameters to be used on this Search Parameters. <br/>
+	 * Gets the instance of Sort Parameters to be used on this Search Parameters.
 	 * Null value means that Search should not consider sorting.
 	 *
 	 * @return the current Sort Parameters.
@@ -81,7 +81,7 @@ public interface SearchParameters<
 	S getSortParameters();
 
 	/**
-	 * Sets the instance of Sort Parameters to be used on this Search Parameters. <br/>
+	 * Sets the instance of Sort Parameters to be used on this Search Parameters.
 	 * Null value means that Search should not consider sorting.
 	 *
 	 * @param sortParameters an Sort Parameters instance.
@@ -90,10 +90,10 @@ public interface SearchParameters<
 
 	/**
 	 * Checks if an instance of this interface is <b>Null</b>.
-	 * <br/><br/>
+	 * <p>
 	 * This is used internally to do checks before
 	 * an actual search is performed.
-	 * <br/><br/>
+	 * <p>
 	 * Example:
 	 * Null/Empty sort parameters can be refused
 	 * OR a fallback default could be set.
@@ -109,10 +109,10 @@ public interface SearchParameters<
 
 	/**
 	 * Checks if an instance of this interface is <b>Not Null</b>.
-	 * <br/><br/>
+	 * <p>
 	 * This is used internally to do checks before
 	 * an actual search is performed.
-	 * <br/><br/>
+	 * <p>
 	 * Example:
 	 * Null/Empty sort parameters can be refused
 	 * OR a fallback default could be set.
@@ -128,12 +128,12 @@ public interface SearchParameters<
 
 	/**
 	 * Checks if an instance of this interface is <b>Empty</b>.
-	 * <br/><br/>
+	 * <p>
 	 * Is Empty if null OR all properties are null (filter, pagination, sort).
-	 * <br/><br/>
+	 * <p>
 	 * This is used internally to do checks before
 	 * an actual search is performed.
-	 * <br/><br/>
+	 * <p>
 	 * Example:
 	 * Null/Empty sort parameters can be refused
 	 * OR a fallback default could be set.
@@ -160,12 +160,12 @@ public interface SearchParameters<
 
 	/**
 	 * Checks if an instance of this interface is <b>Not Empty</b>.
-	 * <br/><br/>
+	 * <p>
 	 * Is Not Empty if not null OR one of properties are not null (filter, pagination, sort).
-	 * <br/><br/>
+	 * <p>
 	 * This is used internally to do checks before
 	 * an actual search is performed.
-	 * <br/><br/>
+	 * <p>
 	 * Example:
 	 * Null/Empty sort parameters can be refused
 	 * OR a fallback default could be set.

@@ -9,10 +9,10 @@ import lombok.NonNull;
 
 /**
  * Abstraction of Search Controller using default implementations for Pagination and Sorting.
- * <br/><br/>
+ * <p>
  * Extensions of this class will focus on the definition of the remaining Classes to be used,
  * leveraging the existent default implementation for pagination and sorting.
- * <br/><br/>
+ * <p>
  *
  * @param <O> Output Class of Search Results
  * @param <F> Filter Class of Search Parameters
@@ -35,7 +35,7 @@ public abstract class AbstractDefaultSearchController<
 
 	/**
 	 * All args constructor.
-	 * <br/><br/>
+	 * <p>
 	 * Creates a instance of Search Controller with an Search Service.
 	 *
 	 * @param searchService an {@link SearchService} to be used by the Controller. Cannot be null.

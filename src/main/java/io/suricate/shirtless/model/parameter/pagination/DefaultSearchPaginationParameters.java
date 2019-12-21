@@ -4,7 +4,7 @@ import io.suricate.shirtless.model.parameter.SearchParameters;
 
 /**
  * Default Implementation of Search Pagination Parameters.
- * <br/><br/>
+ * <p>
  * This implementation aims to provide less generics overhead downstream,
  * while covering the most common cases.
  *
@@ -17,7 +17,7 @@ public class DefaultSearchPaginationParameters
 		implements SearchPaginationParameters {
 
 	/**
-	 * No args constructor. <br/>
+	 * No args constructor.
 	 * Important in case of Dependency Injection or Serialization.
 	 */
 	public DefaultSearchPaginationParameters() {
@@ -55,6 +55,8 @@ public class DefaultSearchPaginationParameters
 	/**
 	 * Static factory method for an all args instance.
 	 *
+	 * @param pageNumber Value for the Page Number
+	 * @param pageSize Value for the Page Size
 	 * @return An filled instance (all parameters).
 	 */
 	public static DefaultSearchPaginationParameters with(Integer pageNumber, Integer pageSize) {

@@ -6,14 +6,14 @@ import java.util.Optional;
 
 /**
  * Base interface for adaptation of an Search Pagination Parameters.
- * <br/><br/>
+ * <p>
  * Instances should focus on the adaptation of the {@link SearchPaginationParameters}
  * to the Target class defined in the class generics.
- * <br/><br/>
- * The Target class is the object that another layer can work with. <br/>
+ * <p>
+ * The Target class is the object that another layer can work with.
  * Eg. Spring cannot understand {@link SearchPaginationParameters}, so we need to adapt to an
  * Pageable class instance.
- * <br/><br/>
+ * <p>
  * Adapter Design Pattern: http://www.tutorialspoint.com/design_pattern/adapter_pattern.htm
  *
  * @param <P> Class of the Search Pagination Parameters
@@ -27,7 +27,7 @@ public interface SearchPaginationParametersAdapter<P extends SearchPaginationPar
 	/**
 	 * Adapts from {@link SearchPaginationParameters} to an Target type defined
 	 * by class generics.
-	 * <br/><br/>
+	 * <p>
 	 *
 	 *
 	 * @param searchPaginationParameters the instance to be adapted

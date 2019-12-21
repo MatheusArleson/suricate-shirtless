@@ -4,34 +4,34 @@ import java.util.Objects;
 
 /**
  * Base interface for Sort Parameters of an Search.
- * <br/><br/>
+ * <p>
  * Instances will hold values to be used on the Sort of the Search itself.
- * <br/><br/>
- * Sorting has a concept of <b>codes</b>. <br/>
+ * <p>
+ * Sorting has a concept of <b>codes</b>. <br>
  * In other words, the sort values require translation
- * from the code to the values itself (indirection). <br/>
- * <b>Example:</b> User wants to sort books by title. <br/>
+ * from the code to the values itself (indirection). <br>
+ * <b>Example:</b> User wants to sort books by title. <br>
  * Sort parameters should have the code for book tile, eg. 'bt'
- * <br/><br/>
- * Sorting has a concept of <b>directions</b>. <br/>
+ * <p>
+ * Sorting has a concept of <b>directions</b>. <br>
  * In other words, the sort values require an direction to be
- * applied, usually <i>ascending</i> or <i>descending</i>. <br/>
- * <b>Example:</b> User wants to sort books by title, ascending. <br/>
+ * applied, usually <i>ascending</i> or <i>descending</i>. <br>
+ * <b>Example:</b> User wants to sort books by title, ascending. <br>
  * Sort parameters should have the code for ascending, eg 'asc'
- * <br/><br/>
- * Sorting has a concept of <b>index sliding column</b>. <br/>
+ * <p>
+ * Sorting has a concept of <b>index sliding column</b>. <br>
  * In other words, a single sort will be processed using the same
- * index of both arrays (like a sliding column). <br/>
+ * index of both arrays (like a sliding column). <br>
  * <b>Example:</b> The first sort will processed on index 0 of both <b>codes and directions</b>.
- * <br/><br/>
+ * <p>
  * Design decision note: Why arrays?
- * <br/><br/>
- * This is due to the way HTTP GET query string works. https://tools.ietf.org/html/rfc3986 <br/>
+ * <p>
+ * This is due to the way HTTP GET query string works. https://tools.ietf.org/html/rfc3986 <br>
  * If a parameter is a list, the same parameter will be repeat
- * over and over in the order that it was sent. <br/>
- * <i>/search?sort.code=foo&sort.code=bar </i> <br/>
+ * over and over in the order that it was sent. <br>
+ * <i>/search?sort.code=foo%26sort.code=bar </i> <br>
  * Complex objects here requires serialization that is
- * outside of the scope of this code. <br/>
+ * outside of the scope of this code. <br>
  * To maximize compatibility, using separate arrays fits nicely on HTTP itself,
  * requiring the minimum serialization possible.
  *
@@ -39,7 +39,7 @@ import java.util.Objects;
 public interface SearchSortParameters {
 
 	/**
-	 * Gets the values of Sort Codes. <br/>
+	 * Gets the values of Sort Codes.
 	 * Codes will be evaluated and
 	 * translated to values to be used on the Search.
 	 *
@@ -57,7 +57,7 @@ public interface SearchSortParameters {
 	void setSortCodes(String[] sortCodes);
 
 	/**
-	 * Gets the values of Sort Directions. <br/>
+	 * Gets the values of Sort Directions.
 	 * Directions will be evaluated and
 	 * translated to values to be used on the Search.
 	 *
@@ -76,10 +76,10 @@ public interface SearchSortParameters {
 
 	/**
 	 * Checks if an instance of this interface is <b>Null</b>.
-	 * <br/><br/>
+	 * <p>
 	 * This is used internally to do checks before
 	 * an actual search is performed.
-	 * <br/><br/>
+	 * <p>
 	 * Example:
 	 * Null/Empty sort parameters can be refused
 	 * OR a fallback default could be set.
@@ -95,10 +95,10 @@ public interface SearchSortParameters {
 
 	/**
 	 * Checks if an instance of this interface is <b>Not Null</b>.
-	 * <br/><br/>
+	 * <p>
 	 * This is used internally to do checks before
 	 * an actual search is performed.
-	 * <br/><br/>
+	 * <p>
 	 * Example:
 	 * Null/Empty sort parameters can be refused
 	 * OR a fallback default could be set.
@@ -114,14 +114,14 @@ public interface SearchSortParameters {
 
 	/**
 	 * Checks if an instance of this interface is <b>Empty</b>.
-	 * <br/><br/>
-	 * Is Empty if both codes and directions arrays: <br/>
-	 * - are null or empty. <br/>
-	 * - have different sizes. <br/>
-	 * <br/><br/>
+	 * <p>
+	 * Is Empty if both codes and directions arrays: <br>
+	 * - are null or empty. <br>
+	 * - have different sizes. <br>
+	 * <p>
 	 * This is used internally to do checks before
 	 * an actual search is performed.
-	 * <br/><br/>
+	 * <p>
 	 * Example:
 	 * Null/Empty sort parameters can be refused
 	 * OR a fallback default could be set.
@@ -147,14 +147,14 @@ public interface SearchSortParameters {
 
 	/**
 	 * Checks if an instance of this interface is <b>Not Empty</b>.
-	 * <br/><br/>
-	 * Is not Empty if both codes and directions arrays: <br/>
-	 * - are not null and not empty. <br/>
-	 * - have same sizes <br/>
-	 * <br/><br/>
+	 * <p>
+	 * Is not Empty if both codes and directions arrays: <br>
+	 * - are not null and not empty. <br>
+	 * - have same sizes <br>
+	 * <p>
 	 * This is used internally to do checks before
 	 * an actual search is performed.
-	 * <br/><br/>
+	 * <p>
 	 * Example:
 	 * Null/Empty sort parameters can be refused
 	 * OR a fallback default could be set.

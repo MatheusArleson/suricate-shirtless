@@ -6,12 +6,12 @@ import java.util.Objects;
 
 /**
  * Base interface for Filter Parameters of an Search.
- * <br/><br/>
+ * <p>
  * Instances will hold the values to be used on Filter of the Search itself.
- * <br/><br/>
- * Filtering has a concept of <b>Presence</b> of the filter values. <br/>
- * In other words, the filter values are what you want the Search Results <b>to have</b>. <br/>
- * <br/><br/>
+ * <p>
+ * Filtering has a concept of <b>Presence</b> of the filter values.
+ * In other words, the filter values are what you want the Search Results <b>to have</b>.
+ * <p>
  * Example: User wants books with "Java" in the title, filter should have this as a value of an property.
  *
  * @see SearchParameters
@@ -20,15 +20,16 @@ public interface SearchFilterParameters {
 
 	/**
 	 * Checks if the filter is empty or not.
-	 * <br/><br/>
-	 * Emptiness is defined by the implementation. <br/>
+	 * <p>
+	 * Emptiness is defined by the implementation.
+	 * <p>
 	 * In the simplest case, its a check if is
-	 * there at least one Not Null valued property. <br/>
-	 * OR a check if a set of mandatory properties are Not Null <br/>
-	 * <br/><br/>
+	 * there at least one Not Null valued property,
+	 * OR a check if a set of mandatory properties are Not Null.
+	 * <p>
 	 * This is used internally to do checks before
 	 * an actual search is performed.
-	 * <br/><br/>
+	 * <p>
 	 * Example:
 	 * Null/Empty filter parameters can be refused
 	 * OR a fallback default could be set.
@@ -42,10 +43,10 @@ public interface SearchFilterParameters {
 
 	/**
 	 * Checks if an instance of this interface is <b>Null</b>.
-	 * <br/><br/>
+	 * <p>
 	 * This is used internally to do checks before
 	 * an actual search is performed.
-	 * <br/><br/>
+	 * <p>
 	 * Example:
 	 * Null/Empty filter parameters can be refused
 	 * OR a fallback default could be set.
@@ -61,10 +62,10 @@ public interface SearchFilterParameters {
 
 	/**
 	 * Checks if an instance of this interface is <b>Not Null</b>.
-	 * <br/><br/>
+	 * <p>
 	 * This is used internally to do checks before
 	 * an actual search is performed.
-	 * <br/><br/>
+	 * <p>
 	 * Example:
 	 * Null/Empty filter parameters can be refused
 	 * OR a fallback default could be set.
@@ -80,13 +81,12 @@ public interface SearchFilterParameters {
 
 	/**
 	 * Checks if an instance of this interface is <b>Empty</b>.
-	 * <br/><br/>
-	 * Emptiness is defined by: a null value <br/>
-	 * OR when {@link #isEmpty()} returns true.
-	 * <br/><br/>
+	 * <p>
+	 * Emptiness is defined by: a null value OR when {@link #isEmpty()} returns true.
+	 * <p>
 	 * This is used internally to do checks before
 	 * an actual search is performed.
-	 * <br/><br/>
+	 * <p>
 	 * Example:
 	 * Null/Empty filter parameters can be refused
 	 * OR a fallback default could be set.
@@ -102,13 +102,12 @@ public interface SearchFilterParameters {
 
 	/**
 	 * Checks if an instance of this interface is <b>Not Empty</b>.
-	 * <br/><br/>
-	 * Emptiness is defined by: a null value <br/>
-	 * OR when {@link #isEmpty()} returns true.
-	 * <br/><br/>
+	 * <p>
+	 * Emptiness is defined by: a null value OR when {@link #isEmpty()} returns true.
+	 * <p>
 	 * This is used internally to do checks before
 	 * an actual search is performed.
-	 * <br/><br/>
+	 * <p>
 	 * Example:
 	 * Null/Empty filter parameters can be refused
 	 * OR a fallback default could be set.

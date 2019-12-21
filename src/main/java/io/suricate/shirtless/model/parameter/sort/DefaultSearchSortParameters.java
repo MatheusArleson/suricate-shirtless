@@ -4,7 +4,7 @@ import io.suricate.shirtless.model.parameter.SearchParameters;
 
 /**
  * Default Implementation of Search Sort Parameters.
- * <br/><br/>
+ * <p>
  * This implementation aims to provide less generics overhead downstream,
  * while covering the most common cases.
  *
@@ -17,7 +17,7 @@ public class DefaultSearchSortParameters
 		implements SearchSortParameters {
 
 	/**
-	 * No args constructor. <br/>
+	 * No args constructor.
 	 * Important in case of Dependency Injection or Serialization.
 	 */
 	public DefaultSearchSortParameters() {
@@ -45,6 +45,8 @@ public class DefaultSearchSortParameters
 	/**
 	 * Static factory method for an all args instance.
 	 *
+	 * @param sortCodes Values of Sort Codes
+	 * @param sortDirections Values of Sort directions
 	 * @return An filled instance (all parameters).
 	 */
 	public static DefaultSearchSortParameters with(String[] sortCodes, String[] sortDirections) {
