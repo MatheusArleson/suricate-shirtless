@@ -1,18 +1,18 @@
 package io.suricate.shirtless.controller;
 
+import io.suricate.shirtless.exceptions.search.parameters.*;
 import io.suricate.shirtless.model.parameter.SearchParameters;
 import io.suricate.shirtless.model.parameter.filter.SearchFilterParameters;
 import io.suricate.shirtless.model.parameter.pagination.SearchPaginationParameters;
 import io.suricate.shirtless.model.parameter.sort.SearchSortParameters;
 import io.suricate.shirtless.service.SearchService;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
+import lombok.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Base abstraction for Search Controller implementations.
@@ -42,6 +42,14 @@ public abstract class AbstractSearchController<
 			SV extends SearchService<O, F, P, S, SP>
 		> implements SearchController<O, F, P, S, SP, SV> {
 
+	private final Logger LOGGER = LoggerFactory.getLogger(getClass());
+
+	/**
+	 * The service that will perform the search operation and provide data to the controller.
+	 * <p>
+	 *
+	 * @see SearchService
+	 */
 	@Getter(AccessLevel.PRIVATE)
 	@Setter(AccessLevel.NONE)
 	@NonNull
@@ -49,17 +57,44 @@ public abstract class AbstractSearchController<
 
 	@Override
 	public Long total() {
-		return this.getSearchService().total();
+		LOGGER.debug("Executing: total operation.");
+
+		Long total = this.getSearchService().total();
+
+		LOGGER.debug("Return: " + total);
+		return total;
 	}
 
 	@Override
-	public Long count(SP searchParameters) {
-		return this.getSearchService().count(searchParameters);
+	public Long count(SP searchParameters) throws EmptyParameterNotAllowedException {
+		try {
+			LOGGER.debug("Executing: count operation.");
+			LOGGER.debug("Arguments: " + (Objects.nonNull(searchParameters) ? searchParameters.toString() : "null"));
+
+			Long count = this.getSearchService().count(searchParameters);
+
+			LOGGER.debug("Return: " + count);
+			return count;
+		} catch (EmptyParameterNotAllowedException e){
+			LOGGER.error(e.getMessage(), e);
+			throw e;
+		}
 	}
 
 	@Override
-	public Collection<O> search(SP searchParameters) {
-		return this.getSearchService().search(searchParameters);
+	public List<O> search(SP searchParameters) throws EmptyParameterNotAllowedException {
+		try {
+			LOGGER.debug("Executing count operation.");
+			LOGGER.debug("Arguments: " + (Objects.nonNull(searchParameters) ? searchParameters.toString() : "null"));
+
+			List<O> searchResults = this.getSearchService().search(searchParameters);
+
+			LOGGER.debug("Return: " + searchResults);
+			return searchResults;
+		} catch (EmptyParameterNotAllowedException e) {
+			LOGGER.error(e.getMessage(), e);
+			throw e;
+		}
 	}
 
 	@Override

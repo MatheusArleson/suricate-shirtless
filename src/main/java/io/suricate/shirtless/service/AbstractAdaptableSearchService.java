@@ -1,8 +1,10 @@
 package io.suricate.shirtless.service;
 
-import io.suricate.shirtless.exceptions.search.parameters.EmptyAdaptedSearchFilterParametersNotAllowed;
-import io.suricate.shirtless.exceptions.search.parameters.EmptyAdaptedSearchPaginationParametersNotAllowed;
-import io.suricate.shirtless.exceptions.search.parameters.EmptyAdaptedSearchSortParametersNotAllowed;
+import io.suricate.shirtless.exceptions.search.parameters.EmptyParameterNotAllowedException;
+import io.suricate.shirtless.exceptions.search.parameters.adapter.AdpterException;
+import io.suricate.shirtless.exceptions.search.parameters.adapter.EmptyAdaptedSearchFilterParametersNotAllowed;
+import io.suricate.shirtless.exceptions.search.parameters.adapter.EmptyAdaptedSearchPaginationParametersNotAllowed;
+import io.suricate.shirtless.exceptions.search.parameters.adapter.EmptyAdaptedSearchSortParametersNotAllowed;
 import io.suricate.shirtless.model.adapter.SearchParametersAdapter;
 import io.suricate.shirtless.model.parameter.SearchParameters;
 import io.suricate.shirtless.model.parameter.filter.SearchFilterParameters;
@@ -13,7 +15,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 public abstract class AbstractAdaptableSearchService<
@@ -50,7 +52,7 @@ public abstract class AbstractAdaptableSearchService<
 	protected abstract Long count(FT adaptedFilter, PT adapterPagination, ST adapterSort);
 
 	@Override
-	protected Collection<O> search(F filterParameters, P paginationParameters, S sortParameters) {
+	protected List<O> search(F filterParameters, P paginationParameters, S sortParameters) {
 		FT adaptedFilter = this.adaptFilterParameters(filterParameters);
 		PT adapterPagination = this.adaptPaginationParameters(paginationParameters);
 		ST adapterSort = this.adaptSortParameters(sortParameters);
@@ -58,9 +60,9 @@ public abstract class AbstractAdaptableSearchService<
 		return this.search(adaptedFilter, adapterPagination, adapterSort);
 	}
 
-	protected abstract Collection<O> search(FT adaptedFilter, PT adapterPagination, ST adapterSort);
+	protected abstract List<O> search(FT adaptedFilter, PT adapterPagination, ST adapterSort);
 
-	private FT adaptFilterParameters(F filterParameters) {
+	private FT adaptFilterParameters(F filterParameters) throws EmptyAdaptedSearchFilterParametersNotAllowed {
 		Optional<FT> adaptedFilterOpt = this.getSearchParametersAdapter().adaptFilter(filterParameters);
 
 		if (adaptedFilterOpt.isPresent()) {
@@ -74,7 +76,7 @@ public abstract class AbstractAdaptableSearchService<
 		}
 	}
 
-	private PT adaptPaginationParameters(P paginationParameters) {
+	private PT adaptPaginationParameters(P paginationParameters) throws EmptyAdaptedSearchPaginationParametersNotAllowed {
 		Optional<PT> adaptedPaginationOpt = this.getSearchParametersAdapter().adaptPagination(paginationParameters);
 
 		if (adaptedPaginationOpt.isPresent()) {
@@ -88,7 +90,7 @@ public abstract class AbstractAdaptableSearchService<
 		}
 	}
 
-	private ST adaptSortParameters(S sortParameters) {
+	private ST adaptSortParameters(S sortParameters) throws EmptyAdaptedSearchSortParametersNotAllowed {
 		Optional<ST> adaptedSortOpt = this.getSearchParametersAdapter().adaptSort(sortParameters);
 
 		if (adaptedSortOpt.isPresent()) {

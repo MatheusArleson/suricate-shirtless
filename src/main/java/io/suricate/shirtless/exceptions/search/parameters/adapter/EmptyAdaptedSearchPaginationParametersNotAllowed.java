@@ -1,6 +1,6 @@
-package io.suricate.shirtless.exceptions.search.parameters;
+package io.suricate.shirtless.exceptions.search.parameters.adapter;
 
-public class EmptyAdaptedSearchPaginationParametersNotAllowed extends RuntimeException {
+public class EmptyAdaptedSearchPaginationParametersNotAllowed extends AdpterException {
 
 	public EmptyAdaptedSearchPaginationParametersNotAllowed() {
 	}
@@ -17,7 +17,4 @@ public class EmptyAdaptedSearchPaginationParametersNotAllowed extends RuntimeExc
 		super(cause);
 	}
 
-	public EmptyAdaptedSearchPaginationParametersNotAllowed(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-		super(message, cause, enableSuppression, writableStackTrace);
-	}
 }

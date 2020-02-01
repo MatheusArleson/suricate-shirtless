@@ -1,6 +1,6 @@
 package io.suricate.shirtless.exceptions.search.parameters;
 
-public class EmptySearchParametersNotAllowed extends RuntimeException {
+public class EmptySearchParametersNotAllowed extends EmptyParameterNotAllowedException {
 
 	public EmptySearchParametersNotAllowed() {
 	}
@@ -17,7 +17,4 @@ public class EmptySearchParametersNotAllowed extends RuntimeException {
 		super(cause);
 	}
 
-	public EmptySearchParametersNotAllowed(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-		super(message, cause, enableSuppression, writableStackTrace);
-	}
 }

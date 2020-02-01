@@ -1,11 +1,12 @@
 package io.suricate.shirtless.service;
 
+import io.suricate.shirtless.exceptions.search.parameters.*;
 import io.suricate.shirtless.model.parameter.SearchParameters;
 import io.suricate.shirtless.model.parameter.filter.SearchFilterParameters;
 import io.suricate.shirtless.model.parameter.pagination.SearchPaginationParameters;
 import io.suricate.shirtless.model.parameter.sort.SearchSortParameters;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -50,8 +51,9 @@ public interface SearchService<
 	 *
 	 * @param searchParameters an Search Parameters to be used.
 	 * @return the total number of Search Results that match the Search Parameters.
+	 * @throws EmptyParameterNotAllowedException In case emptiness is detected and its not allowed by this service.
 	 */
-	Long count(SP searchParameters);
+	Long count(SP searchParameters) throws EmptyParameterNotAllowedException;
 
 	/**
 	 * Gets the Search Results that match the Search Parameters.
@@ -62,9 +64,10 @@ public interface SearchService<
 	 * Allowing implementations to pass any desired class.
 	 *
 	 * @param searchParameters an Search Parameters to be used.
-	 * @return {@link Collection} of Search Results.
+	 * @return {@link List} of Search Results.
+	 * @throws EmptyParameterNotAllowedException In case emptiness is detected and its not allowed by this service.
 	 */
-	Collection<O> search(SP searchParameters);
+	List<O> search(SP searchParameters) throws EmptyParameterNotAllowedException;
 
 	/**
 	 * Exposes the model of the Search Filter Parameters in key-value format.

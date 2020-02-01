@@ -1,6 +1,6 @@
-package io.suricate.shirtless.exceptions.search.parameters;
+package io.suricate.shirtless.exceptions.search.parameters.adapter;
 
-public class EmptyAdaptedSearchSortParametersNotAllowed extends RuntimeException {
+public class EmptyAdaptedSearchSortParametersNotAllowed extends AdpterException {
 
 	public EmptyAdaptedSearchSortParametersNotAllowed() {
 	}
@@ -17,7 +17,4 @@ public class EmptyAdaptedSearchSortParametersNotAllowed extends RuntimeException
 		super(cause);
 	}
 
-	public EmptyAdaptedSearchSortParametersNotAllowed(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-		super(message, cause, enableSuppression, writableStackTrace);
-	}
 }
