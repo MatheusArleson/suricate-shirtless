@@ -6,7 +6,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>io.suricate</groupId>
-	<artifactId>suricate-shirtless</artifactId>
+	<artifactId>suricate-shirtless-java</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
@@ -44,6 +44,7 @@
 		<project.reporting.outputEncoding>${encoding}</project.reporting.outputEncoding>
 		<javadoc.maven.plugin.encoding>${encoding}</javadoc.maven.plugin.encoding>
 
+		<sl4j.version>1.7.30</sl4j.version>
 		<lombok.version>1.18.10</lombok.version>
 
 		<junit.jupiter.api.version>5.5.2</junit.jupiter.api.version>
@@ -62,6 +63,12 @@
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${sl4j.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
