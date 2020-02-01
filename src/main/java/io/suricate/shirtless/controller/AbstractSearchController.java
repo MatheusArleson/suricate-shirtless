@@ -42,7 +42,7 @@ public abstract class AbstractSearchController<
 			SV extends SearchService<O, F, P, S, SP>
 		> implements SearchController<O, F, P, S, SP, SV> {
 
-	@Getter(AccessLevel.PROTECTED)
+	@Getter(AccessLevel.PRIVATE)
 	@Setter(AccessLevel.NONE)
 	@NonNull
 	private SV searchService;
