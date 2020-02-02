@@ -25,14 +25,14 @@ class AbstractSearchControllerTest {
 
 	private SearchService searchService;
 	private AbstractSearchController searchController;
-	private ArgumentCaptor<SearchParameters> captor;
+	private ArgumentCaptor<SearchParameters> argumentCaptor;
 
 	@BeforeEach
 	public void setup(){
-		searchService = Mockito.mock(SearchService.class, CALLS_REAL_METHODS);
+		searchService = Mockito.mock(SearchService.class);
 		searchController = new AbstractSearchController(searchService) {};
 
-		captor = ArgumentCaptor.forClass(SearchParameters.class);
+		argumentCaptor = ArgumentCaptor.forClass(SearchParameters.class);
 	}
 
 	@Test
@@ -61,10 +61,12 @@ class AbstractSearchControllerTest {
 		Long fixtureResult = searchController.count(fixtureSearchParameters);
 
 		//then
-		verify(searchService).count(captor.capture());
+		verify(searchService).count(argumentCaptor.capture());
 		verify(searchService, times(1)).count(fixtureSearchParameters);
 		verifyNoMoreInteractions(searchService);
+
 		assertNull(fixtureSearchParameters);
+		assertSame(fixtureSearchParameters, argumentCaptor.getValue());
 		assertEquals(fixtureSearchResultsCount, fixtureResult);
 	}
 
@@ -78,10 +80,12 @@ class AbstractSearchControllerTest {
 		Long fixtureResult = searchController.count(fixtureSearchParameters);
 
 		//then
-		verify(searchService).count(captor.capture());
+		verify(searchService).count(argumentCaptor.capture());
 		verify(searchService, times(1)).count(fixtureSearchParameters);
 		verifyNoMoreInteractions(searchService);
+
 		assertNotNull(fixtureSearchParameters);
+		assertSame(fixtureSearchParameters, argumentCaptor.getValue());
 		assertEquals(fixtureSearchResultsCount, fixtureResult);
 	}
 
@@ -96,10 +100,12 @@ class AbstractSearchControllerTest {
 		Collection fixtureResult = searchController.search(fixtureSearchParameters);
 
 		//then
-		verify(searchService).search(captor.capture());
+		verify(searchService).search(argumentCaptor.capture());
 		verify(searchService, times(1)).search(fixtureSearchParameters);
 		verifyNoMoreInteractions(searchService);
+
 		assertNull(fixtureSearchParameters);
+		assertSame(fixtureSearchParameters, argumentCaptor.getValue());
 		assertEquals(fixtureSearchResults, fixtureResult);
 	}
 
@@ -113,10 +119,12 @@ class AbstractSearchControllerTest {
 		Collection fixtureResult = searchController.search(fixtureSearchParameters);
 
 		//then
-		verify(searchService).search(captor.capture());
+		verify(searchService).search(argumentCaptor.capture());
 		verify(searchService, times(1)).search(fixtureSearchParameters);
 		verifyNoMoreInteractions(searchService);
+
 		assertNotNull(fixtureSearchParameters);
+		assertSame(fixtureSearchParameters, argumentCaptor.getValue());
 		assertEquals(fixtureSearchResults, fixtureResult);
 	}
 
