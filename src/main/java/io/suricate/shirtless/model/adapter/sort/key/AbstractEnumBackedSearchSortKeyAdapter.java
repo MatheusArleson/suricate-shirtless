@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
@@ -19,7 +18,7 @@ public abstract class AbstractEnumBackedSearchSortKeyAdapter<
 			T extends Enum<? extends SearchSortKey> & SearchSortKey
 		> implements SearchSortKeyAdapter {
 
-	private static final int ENUM_CLASS_GENERICS_INDEX = 1;
+	private static final int ENUM_CLASS_GENERICS_INDEX = 0;
 
 	@Getter(AccessLevel.NONE)
 	@Setter(AccessLevel.NONE)
@@ -54,17 +53,12 @@ public abstract class AbstractEnumBackedSearchSortKeyAdapter<
 		return this.codeToEnumMemberMap;
 	}
 
-	@SuppressWarnings("unchecked")
 	private SearchSortKey[] getAllEnumMembers() {
-		Optional<Type> declaredEnumTypeOpt = GenericsUtils.getGenericType(this.getClass(), ENUM_CLASS_GENERICS_INDEX);
-		if (!declaredEnumTypeOpt.isPresent()) {
-			throw new IllegalStateException("Unable to get enum class from generics.");
-		}
+		Optional<SearchSortKey[]> enumMembersOpt = GenericsUtils.getAllEnumMembers(this.getClass(), ENUM_CLASS_GENERICS_INDEX);
+		SearchSortKey[] enumMembers = enumMembersOpt.orElse(null);
 
-		Class<T> declaredEnumClass = (Class<T>) declaredEnumTypeOpt.get();
-		T[] enumConstants = declaredEnumClass.getEnumConstants();
-		if (Objects.nonNull(enumConstants) && enumConstants.length > 0) {
-			return enumConstants;
+		if (Objects.nonNull(enumMembers) && enumMembers.length > 0) {
+			return enumMembers;
 		} else {
 			throw new IllegalStateException("Unable to get enum members from class on generics.");
 		}
