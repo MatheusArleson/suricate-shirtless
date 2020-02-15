@@ -1,6 +1,6 @@
 package io.suricate.shirtless.exceptions.search.parameters;
 
-public class EmptyParameterNotAllowedException extends Exception {
+public class EmptyParameterNotAllowedException extends RuntimeException {
 
 	public EmptyParameterNotAllowedException() {
 	}

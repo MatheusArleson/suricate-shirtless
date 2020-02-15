@@ -55,9 +55,8 @@ public interface SearchController<
 	 *
 	 * @param searchParameters an Search Parameters to be used.
 	 * @return the total number of Search Results that match the Search Parameters.
-	 * @throws EmptyParameterNotAllowedException In case emptiness is detected and its not allowed by this controller.
 	 */
-	Long count(SP searchParameters) throws EmptyParameterNotAllowedException;
+	Long count(SP searchParameters);
 
 	/**
 	 * Gets the Search Results that match the Search Parameters.
@@ -69,9 +68,8 @@ public interface SearchController<
 	 *
 	 * @param searchParameters an Search Parameters to be used.
 	 * @return {@link List} of Search Results.
-	 * @throws EmptyParameterNotAllowedException In case emptiness is detected and its not allowed by this controller.
 	 */
-	List<O> search(SP searchParameters) throws EmptyParameterNotAllowedException;
+	List<O> search(SP searchParameters);
 
 	/**
 	 * Exposes the model of the Search Filter Parameters in key-value format.

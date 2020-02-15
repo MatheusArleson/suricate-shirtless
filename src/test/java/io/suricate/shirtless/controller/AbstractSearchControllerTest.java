@@ -1,6 +1,5 @@
 package io.suricate.shirtless.controller;
 
-import io.suricate.shirtless.exceptions.search.parameters.EmptyParameterNotAllowedException;
 import io.suricate.shirtless.model.parameter.SearchParameters;
 import io.suricate.shirtless.service.SearchService;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,6 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -51,7 +51,7 @@ class AbstractSearchControllerTest {
 	}
 
 	@Test
-	void count_shouldBeCalled_forNullParameter() throws EmptyParameterNotAllowedException {
+	void count_shouldBeCalled_forNullParameter() {
 		//given
 		SearchParameters fixtureSearchParameters = null;
 		Long fixtureSearchResultsCount = 77L;
@@ -71,7 +71,7 @@ class AbstractSearchControllerTest {
 	}
 
 	@Test
-	void count_shouldBeCalled_forNotNullParameter(@Mock SearchParameters fixtureSearchParameters) throws EmptyParameterNotAllowedException {
+	void count_shouldBeCalled_forNotNullParameter(@Mock SearchParameters fixtureSearchParameters) {
 		//given
 		Long fixtureSearchResultsCount = 99L;
 		doReturn(fixtureSearchResultsCount).when(searchService).count(any(SearchParameters.class));
@@ -90,7 +90,7 @@ class AbstractSearchControllerTest {
 	}
 
 	@Test
-	void search_shouldBeCalled_forNullParameter() throws EmptyParameterNotAllowedException {
+	void search_shouldBeCalled_forNullParameter() {
 		//given
 		SearchParameters fixtureSearchParameters = null;
 		Collection fixtureSearchResults = Collections.emptyList();
@@ -110,7 +110,7 @@ class AbstractSearchControllerTest {
 	}
 
 	@Test
-	void search_shouldBeCalled_forNotNullParameter(@Mock SearchParameters fixtureSearchParameters) throws EmptyParameterNotAllowedException {
+	void search_shouldBeCalled_forNotNullParameter(@Mock SearchParameters fixtureSearchParameters) {
 		//given
 		Collection fixtureSearchResults = Collections.emptyList();
 		doReturn(fixtureSearchResults).when(searchService).search(fixtureSearchParameters);
@@ -130,13 +130,49 @@ class AbstractSearchControllerTest {
 
 	@Test
 	void filterMetaModel() {
+		//given
+		Map<String, String> mockedMetaModel = Collections.singletonMap("aKey", "aValue");
+		when(searchService.filterMetaModel()).thenReturn(mockedMetaModel);
+		
+		//when
+		Map fixtureMetaModel = searchController.filterMetaModel();
+
+		//then
+		verify(searchService, times(1)).filterMetaModel();
+		verifyNoMoreInteractions(searchService);
+
+		assertEquals(fixtureMetaModel, mockedMetaModel);
 	}
 
 	@Test
 	void paginationMetaModel() {
+		//given
+		Map<String, String> mockedMetaModel = Collections.singletonMap("aKey", "aValue");
+		when(searchService.paginationMetaModel()).thenReturn(mockedMetaModel);
+
+		//when
+		Map fixtureMetaModel = searchController.paginationMetaModel();
+
+		//then
+		verify(searchService, times(1)).paginationMetaModel();
+		verifyNoMoreInteractions(searchService);
+
+		assertEquals(fixtureMetaModel, mockedMetaModel);
 	}
 
 	@Test
 	void sortMetaModel() {
+		//given
+		Map<String, String> mockedMetaModel = Collections.singletonMap("aKey", "aValue");
+		when(searchService.sortMetaModel()).thenReturn(mockedMetaModel);
+
+		//when
+		Map fixtureMetaModel = searchController.sortMetaModel();
+
+		//then
+		verify(searchService, times(1)).sortMetaModel();
+		verifyNoMoreInteractions(searchService);
+
+		assertEquals(fixtureMetaModel, mockedMetaModel);
 	}
 }

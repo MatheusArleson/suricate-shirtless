@@ -66,35 +66,25 @@ public abstract class AbstractSearchController<
 	}
 
 	@Override
-	public Long count(SP searchParameters) throws EmptyParameterNotAllowedException {
-		try {
-			LOGGER.debug("Executing: count operation.");
-			LOGGER.debug("Arguments: " + (Objects.nonNull(searchParameters) ? searchParameters.toString() : "null"));
+	public Long count(SP searchParameters) {
+		LOGGER.debug("Executing: count operation.");
+		LOGGER.debug("Arguments: " + (Objects.nonNull(searchParameters) ? searchParameters.toString() : "null"));
 
-			Long count = this.getSearchService().count(searchParameters);
+		Long count = this.getSearchService().count(searchParameters);
 
-			LOGGER.debug("Return: " + count);
-			return count;
-		} catch (EmptyParameterNotAllowedException e){
-			LOGGER.error(e.getMessage(), e);
-			throw e;
-		}
+		LOGGER.debug("Return: " + count);
+		return count;
 	}
 
 	@Override
-	public List<O> search(SP searchParameters) throws EmptyParameterNotAllowedException {
-		try {
-			LOGGER.debug("Executing count operation.");
-			LOGGER.debug("Arguments: " + (Objects.nonNull(searchParameters) ? searchParameters.toString() : "null"));
+	public List<O> search(SP searchParameters) {
+		LOGGER.debug("Executing count operation.");
+		LOGGER.debug("Arguments: " + (Objects.nonNull(searchParameters) ? searchParameters.toString() : "null"));
 
-			List<O> searchResults = this.getSearchService().search(searchParameters);
+		List<O> searchResults = this.getSearchService().search(searchParameters);
 
-			LOGGER.debug("Return: " + searchResults);
-			return searchResults;
-		} catch (EmptyParameterNotAllowedException e) {
-			LOGGER.error(e.getMessage(), e);
-			throw e;
-		}
+		LOGGER.debug("Return: " + searchResults);
+		return searchResults;
 	}
 
 	@Override

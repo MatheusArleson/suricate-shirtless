@@ -33,8 +33,8 @@ public abstract class AbstractAdaptableSearchService<
 	private final SA searchParametersAdapter;
 
 	public AbstractAdaptableSearchService(
-			@NonNull SU searchParamsSupervisor,
-			@NonNull SA searchParametersAdapter
+		@NonNull SU searchParamsSupervisor,
+		@NonNull SA searchParametersAdapter
 	) {
 		super(searchParamsSupervisor);
 		this.searchParametersAdapter = searchParametersAdapter;

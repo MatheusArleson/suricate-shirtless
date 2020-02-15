@@ -8,6 +8,7 @@ import io.suricate.shirtless.model.parameter.sort.DefaultSearchSortParameters;
 import io.suricate.shirtless.service.AbstractAdaptableSearchService;
 import io.suricate.shirtless.service.AdaptableSearchService;
 import io.suricate.shirtless.service.params.supervisor.AdaptedSearchParametersSupervisor;
+import lombok.NonNull;
 
 public abstract class AbstractAdaptableDefaultSearchService<
 			O,
@@ -21,8 +22,8 @@ public abstract class AbstractAdaptableDefaultSearchService<
 		implements AdaptableSearchService<O, F, FT, DefaultSearchPaginationParameters, PT, DefaultSearchSortParameters, ST, SP, SU, SA> {
 
 	public AbstractAdaptableDefaultSearchService(
-		SU searchParamsSupervisor,
-		SA searchParametersAdapter
+		@NonNull SU searchParamsSupervisor,
+		@NonNull SA searchParametersAdapter
 	) {
 		super(searchParamsSupervisor, searchParametersAdapter);
 	}
