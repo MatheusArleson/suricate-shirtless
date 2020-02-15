@@ -1,7 +1,5 @@
 package io.suricate.shirtless.service;
 
-import io.suricate.shirtless.exceptions.search.parameters.EmptyParameterNotAllowedException;
-import io.suricate.shirtless.exceptions.search.parameters.adapter.AdpterException;
 import io.suricate.shirtless.exceptions.search.parameters.adapter.EmptyAdaptedSearchFilterParametersNotAllowed;
 import io.suricate.shirtless.exceptions.search.parameters.adapter.EmptyAdaptedSearchPaginationParametersNotAllowed;
 import io.suricate.shirtless.exceptions.search.parameters.adapter.EmptyAdaptedSearchSortParametersNotAllowed;

@@ -8,7 +8,7 @@ import io.suricate.shirtless.model.parameter.pagination.DefaultSearchPaginationP
 import io.suricate.shirtless.model.parameter.sort.DefaultSearchSortParameters;
 import lombok.NonNull;
 
-public class AbstractDefaultSearchParametersAdapter<
+public abstract class AbstractDefaultSearchParametersAdapter<
 			F extends SearchFilterParameters, FT,
 			FA extends SearchFilterParametersAdapter<F, FT>,
 			PT,
