@@ -4,14 +4,13 @@ import lombok.NonNull;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.Objects;
 import java.util.Optional;
 
 public final class GenericsUtils {
 
 	private GenericsUtils() {}
 
-	public static Optional<Type> getGenericType(@NonNull Class<?> clazz, int genericsIndex) {
+	public static Optional<Type> getGenericArgumentClass(@NonNull Class<?> clazz, int genericsIndex) {
 		if (genericsIndex < 0) {
 			throw new IllegalArgumentException("Generics index must be greater than zero.");
 		}
@@ -24,7 +23,7 @@ public final class GenericsUtils {
 		ParameterizedType genericSuperclassParameterizedType = (ParameterizedType) genericSuperclass;
 		Type[] actualTypeArguments = genericSuperclassParameterizedType.getActualTypeArguments();
 
-		if (genericsIndex > actualTypeArguments.length) {
+		if (genericsIndex > actualTypeArguments.length - 1) {
 			return Optional.empty();
 		}
 
@@ -34,7 +33,7 @@ public final class GenericsUtils {
 
 	@SuppressWarnings("unchecked")
 	public static <T> Optional<T[]> getAllEnumMembers(@NonNull Class<?> clazz, int genericsIndex) {
-		Optional<Type> declaredEnumTypeOpt = getGenericType(clazz, genericsIndex);
+		Optional<Type> declaredEnumTypeOpt = getGenericArgumentClass(clazz, genericsIndex);
 		if (!declaredEnumTypeOpt.isPresent()) {
 			throw new IllegalStateException("Unable to get enum class from generics.");
 		}
