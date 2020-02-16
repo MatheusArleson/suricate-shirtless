@@ -1,20 +1,14 @@
 package io.suricate.shirtless.exceptions.search.parameters;
 
+import lombok.NonNull;
+
 public class EmptyParameterNotAllowedException extends RuntimeException {
 
-	public EmptyParameterNotAllowedException() {
-	}
-
-	public EmptyParameterNotAllowedException(String message) {
+	public EmptyParameterNotAllowedException(@NonNull String message) {
 		super(message);
 	}
 
-	public EmptyParameterNotAllowedException(String message, Throwable cause) {
+	public EmptyParameterNotAllowedException(@NonNull String message, @NonNull Throwable cause) {
 		super(message, cause);
 	}
-
-	public EmptyParameterNotAllowedException(Throwable cause) {
-		super(cause);
-	}
-
 }
