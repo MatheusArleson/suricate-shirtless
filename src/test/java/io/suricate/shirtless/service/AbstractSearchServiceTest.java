@@ -54,16 +54,17 @@ class AbstractSearchServiceTest {
 
 		return Stream.of(
 			//case 1 - null search parameters - empty search parameters not allowed
-//			Arguments.of(nullSearchParameters, true, EmptySearchParametersNotAllowed.class, false, null, false, null, false, null, false, null),
-//			Arguments.of(nullSearchParameters, true, EmptySearchParametersNotAllowed.class, false, null, false, null, false, null, true, null),
-//			Arguments.of(nullSearchParameters, true, EmptySearchParametersNotAllowed.class, false, null, false, null, true, null, false, null),
-//			Arguments.of(nullSearchParameters, true, EmptySearchParametersNotAllowed.class, false, null, false, null, true, null, true, null),
-//			Arguments.of(nullSearchParameters, true, EmptySearchParametersNotAllowed.class, false, null, true, null, false, null, false, null),
-//			Arguments.of(nullSearchParameters, true, EmptySearchParametersNotAllowed.class, false, null, true, null, false, null, true, null),
-//			Arguments.of(nullSearchParameters, true, EmptySearchParametersNotAllowed.class, false, null, true, null, true, null, false, null),
-//			Arguments.of(nullSearchParameters, true, EmptySearchParametersNotAllowed.class, false, null, true, null, true, null, true, null),
+			Arguments.of(nullSearchParameters, true, EmptySearchParametersNotAllowed.class, false, null, false, null, false, null, false, null),
+			Arguments.of(nullSearchParameters, true, EmptySearchParametersNotAllowed.class, false, null, false, null, false, null, true, null),
+			Arguments.of(nullSearchParameters, true, EmptySearchParametersNotAllowed.class, false, null, false, null, true, null, false, null),
+			Arguments.of(nullSearchParameters, true, EmptySearchParametersNotAllowed.class, false, null, false, null, true, null, true, null),
+			Arguments.of(nullSearchParameters, true, EmptySearchParametersNotAllowed.class, false, null, true, null, false, null, false, null),
+			Arguments.of(nullSearchParameters, true, EmptySearchParametersNotAllowed.class, false, null, true, null, false, null, true, null),
+			Arguments.of(nullSearchParameters, true, EmptySearchParametersNotAllowed.class, false, null, true, null, true, null, false, null),
+			Arguments.of(nullSearchParameters, true, EmptySearchParametersNotAllowed.class, false, null, true, null, true, null, true, null)
+
 			//case 2 - null search parameters - empty search parameters allowed
-			Arguments.of(nullSearchParameters, true, EmptySearchFilterParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, false, null, false, null, false, null)
+//			Arguments.of(nullSearchParameters, true, EmptySearchFilterParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, false, null, false, null, false, null)
 //			Arguments.of(nullSearchParameters, true, EmptySearchFilterParametersNotAllowed.class, true, false, false, true),
 //			Arguments.of(nullSearchParameters, true, EmptySearchFilterParametersNotAllowed.class, true, false, true, false),
 //			Arguments.of(nullSearchParameters, true, EmptySearchFilterParametersNotAllowed.class, true, false, true, true),
