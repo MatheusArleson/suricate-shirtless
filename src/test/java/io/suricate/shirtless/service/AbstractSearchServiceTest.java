@@ -9,14 +9,15 @@ import io.suricate.shirtless.model.parameter.filter.SearchFilterParameters;
 import io.suricate.shirtless.model.parameter.pagination.SearchPaginationParameters;
 import io.suricate.shirtless.model.parameter.sort.SearchSortParameters;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.function.BiConsumer;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -26,7 +27,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class AbstractSearchServiceTest {
 
-	private static Stream<Arguments> count_parametrized_argument_provider() {
+	private static Stream<Arguments> generateParameterStream(BiConsumer<SearchService, SearchParameters> action) {
 		SearchFilterParameters mockedEmptyFilterParameters = mock(SearchFilterParameters.class, CALLS_REAL_METHODS);
 		when(mockedEmptyFilterParameters.isEmpty()).thenReturn(Boolean.TRUE);
 
@@ -74,146 +75,151 @@ class AbstractSearchServiceTest {
 
 		return Stream.of(
 			//case: null search parameters - empty search parameters not allowed
-			Arguments.of(nullSearchParameters, true, EmptySearchParametersNotAllowed.class, false, null, false, null, false, null, false, null),
-			Arguments.of(nullSearchParameters, true, EmptySearchParametersNotAllowed.class, false, null, false, null, false, null, true, null),
-			Arguments.of(nullSearchParameters, true, EmptySearchParametersNotAllowed.class, false, null, false, null, true, null, false, null),
-			Arguments.of(nullSearchParameters, true, EmptySearchParametersNotAllowed.class, false, null, false, null, true, null, true, null),
-			Arguments.of(nullSearchParameters, true, EmptySearchParametersNotAllowed.class, false, null, true, null, false, null, false, null),
-			Arguments.of(nullSearchParameters, true, EmptySearchParametersNotAllowed.class, false, null, true, null, false, null, true, null),
-			Arguments.of(nullSearchParameters, true, EmptySearchParametersNotAllowed.class, false, null, true, null, true, null, false, null),
-			Arguments.of(nullSearchParameters, true, EmptySearchParametersNotAllowed.class, false, null, true, null, true, null, true, null),
+			Arguments.of(action, nullSearchParameters, true, EmptySearchParametersNotAllowed.class, false, null, false, null, false, null, false, null),
+			Arguments.of(action, nullSearchParameters, true, EmptySearchParametersNotAllowed.class, false, null, false, null, false, null, true, null),
+			Arguments.of(action, nullSearchParameters, true, EmptySearchParametersNotAllowed.class, false, null, false, null, true, null, false, null),
+			Arguments.of(action, nullSearchParameters, true, EmptySearchParametersNotAllowed.class, false, null, false, null, true, null, true, null),
+			Arguments.of(action, nullSearchParameters, true, EmptySearchParametersNotAllowed.class, false, null, true, null, false, null, false, null),
+			Arguments.of(action, nullSearchParameters, true, EmptySearchParametersNotAllowed.class, false, null, true, null, false, null, true, null),
+			Arguments.of(action, nullSearchParameters, true, EmptySearchParametersNotAllowed.class, false, null, true, null, true, null, false, null),
+			Arguments.of(action, nullSearchParameters, true, EmptySearchParametersNotAllowed.class, false, null, true, null, true, null, true, null),
 
 			//case: null search parameters - empty search parameters allowed
-			Arguments.of(nullSearchParameters, true, EmptySearchFilterParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, false, null, false, null, false, null),
-			Arguments.of(nullSearchParameters, true, EmptySearchFilterParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, false, null, false, null, true, mockedNotEmptySortParameters),
-			Arguments.of(nullSearchParameters, true, EmptySearchFilterParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, false, null, true, mockedNotEmptyPaginationParameters, false, null),
-			Arguments.of(nullSearchParameters, true, EmptySearchFilterParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, false, null, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters),
-			Arguments.of(nullSearchParameters, true, EmptySearchPaginationParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, false, null, false, null),
-			Arguments.of(nullSearchParameters, true, EmptySearchPaginationParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, false, null, true, mockedNotEmptySortParameters),
-			Arguments.of(nullSearchParameters, true, EmptySearchSortParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, false, null),
-			Arguments.of(nullSearchParameters, false, null, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters),
+			Arguments.of(action, nullSearchParameters, true, EmptySearchFilterParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, false, null, false, null, false, null),
+			Arguments.of(action, nullSearchParameters, true, EmptySearchFilterParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, false, null, false, null, true, mockedNotEmptySortParameters),
+			Arguments.of(action, nullSearchParameters, true, EmptySearchFilterParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, false, null, true, mockedNotEmptyPaginationParameters, false, null),
+			Arguments.of(action, nullSearchParameters, true, EmptySearchFilterParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, false, null, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters),
+			Arguments.of(action, nullSearchParameters, true, EmptySearchPaginationParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, false, null, false, null),
+			Arguments.of(action, nullSearchParameters, true, EmptySearchPaginationParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, false, null, true, mockedNotEmptySortParameters),
+			Arguments.of(action, nullSearchParameters, true, EmptySearchSortParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, false, null),
+			Arguments.of(action, nullSearchParameters, false, null, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters),
 
 			//case: null search parameters - empty search parameters allowed - bad fallbacks
-			Arguments.of(nullSearchParameters, true, EmptySearchParametersNotAllowed.class, true, null, false, null, false, null, false, null),
-			Arguments.of(nullSearchParameters, true, EmptySearchSortParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, true, mockedEmptySortParameters),
-			Arguments.of(nullSearchParameters, true, EmptySearchPaginationParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, true, mockedEmptyPaginationParameters, true, mockedNotEmptySortParameters),
-			Arguments.of(nullSearchParameters, true, EmptySearchFilterParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, true, mockedEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters),
+			Arguments.of(action, nullSearchParameters, true, EmptySearchParametersNotAllowed.class, true, null, false, null, false, null, false, null),
+			Arguments.of(action, nullSearchParameters, true, EmptySearchSortParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, true, mockedEmptySortParameters),
+			Arguments.of(action, nullSearchParameters, true, EmptySearchPaginationParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, true, mockedEmptyPaginationParameters, true, mockedNotEmptySortParameters),
+			Arguments.of(action, nullSearchParameters, true, EmptySearchFilterParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, true, mockedEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters),
 
 			//case: not null but empty search parameters - empty search parameters not allowed
-			Arguments.of(mockedSearchParametersWithNoProperties, true, EmptySearchParametersNotAllowed.class, false, null, false, null, false, null, false, null),
-			Arguments.of(mockedSearchParametersWithNoProperties, true, EmptySearchParametersNotAllowed.class, false, null, false, null, false, null, true, null),
-			Arguments.of(mockedSearchParametersWithNoProperties, true, EmptySearchParametersNotAllowed.class, false, null, false, null, true, null, false, null),
-			Arguments.of(mockedSearchParametersWithNoProperties, true, EmptySearchParametersNotAllowed.class, false, null, false, null, true, null, true, null),
-			Arguments.of(mockedSearchParametersWithNoProperties, true, EmptySearchParametersNotAllowed.class, false, null, true, null, false, null, false, null),
-			Arguments.of(mockedSearchParametersWithNoProperties, true, EmptySearchParametersNotAllowed.class, false, null, true, null, false, null, true, null),
-			Arguments.of(mockedSearchParametersWithNoProperties, true, EmptySearchParametersNotAllowed.class, false, null, true, null, true, null, false, null),
-			Arguments.of(mockedSearchParametersWithNoProperties, true, EmptySearchParametersNotAllowed.class, false, null, true, null, true, null, true, null),
+			Arguments.of(action, mockedSearchParametersWithNoProperties, true, EmptySearchParametersNotAllowed.class, false, null, false, null, false, null, false, null),
+			Arguments.of(action, mockedSearchParametersWithNoProperties, true, EmptySearchParametersNotAllowed.class, false, null, false, null, false, null, true, null),
+			Arguments.of(action, mockedSearchParametersWithNoProperties, true, EmptySearchParametersNotAllowed.class, false, null, false, null, true, null, false, null),
+			Arguments.of(action, mockedSearchParametersWithNoProperties, true, EmptySearchParametersNotAllowed.class, false, null, false, null, true, null, true, null),
+			Arguments.of(action, mockedSearchParametersWithNoProperties, true, EmptySearchParametersNotAllowed.class, false, null, true, null, false, null, false, null),
+			Arguments.of(action, mockedSearchParametersWithNoProperties, true, EmptySearchParametersNotAllowed.class, false, null, true, null, false, null, true, null),
+			Arguments.of(action, mockedSearchParametersWithNoProperties, true, EmptySearchParametersNotAllowed.class, false, null, true, null, true, null, false, null),
+			Arguments.of(action, mockedSearchParametersWithNoProperties, true, EmptySearchParametersNotAllowed.class, false, null, true, null, true, null, true, null),
 
 			//case: not null but empty search parameters - empty search parameters allowed
-			Arguments.of(mockedSearchParametersWithNoProperties, true, EmptySearchFilterParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, false, null, false, null, false, null),
-			Arguments.of(mockedSearchParametersWithNoProperties, true, EmptySearchFilterParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, false, null, false, null, true, mockedNotEmptySortParameters),
-			Arguments.of(mockedSearchParametersWithNoProperties, true, EmptySearchFilterParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, false, null, true, mockedNotEmptyPaginationParameters, false, null),
-			Arguments.of(mockedSearchParametersWithNoProperties, true, EmptySearchFilterParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, false, null, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters),
-			Arguments.of(mockedSearchParametersWithNoProperties, true, EmptySearchPaginationParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, false, null, false, null),
-			Arguments.of(mockedSearchParametersWithNoProperties, true, EmptySearchPaginationParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, false, null, true, mockedNotEmptySortParameters),
-			Arguments.of(mockedSearchParametersWithNoProperties, true, EmptySearchSortParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, false, null),
-			Arguments.of(mockedSearchParametersWithNoProperties, false, null, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters),
+			Arguments.of(action, mockedSearchParametersWithNoProperties, true, EmptySearchFilterParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, false, null, false, null, false, null),
+			Arguments.of(action, mockedSearchParametersWithNoProperties, true, EmptySearchFilterParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, false, null, false, null, true, mockedNotEmptySortParameters),
+			Arguments.of(action, mockedSearchParametersWithNoProperties, true, EmptySearchFilterParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, false, null, true, mockedNotEmptyPaginationParameters, false, null),
+			Arguments.of(action, mockedSearchParametersWithNoProperties, true, EmptySearchFilterParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, false, null, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters),
+			Arguments.of(action, mockedSearchParametersWithNoProperties, true, EmptySearchPaginationParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, false, null, false, null),
+			Arguments.of(action, mockedSearchParametersWithNoProperties, true, EmptySearchPaginationParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, false, null, true, mockedNotEmptySortParameters),
+			Arguments.of(action, mockedSearchParametersWithNoProperties, true, EmptySearchSortParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, false, null),
+			Arguments.of(action, mockedSearchParametersWithNoProperties, false, null, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters),
 
 			//case: not null but empty search parameters - empty search parameters allowed - bad fallbacks
-			Arguments.of(mockedSearchParametersWithNoProperties, true, EmptySearchParametersNotAllowed.class, true, null, false, null, false, null, false, null),
-			Arguments.of(mockedSearchParametersWithNoProperties, true, EmptySearchSortParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, true, mockedEmptySortParameters),
-			Arguments.of(mockedSearchParametersWithNoProperties, true, EmptySearchPaginationParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, true, mockedEmptyPaginationParameters, true, mockedNotEmptySortParameters),
-			Arguments.of(mockedSearchParametersWithNoProperties, true, EmptySearchFilterParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, true, mockedEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters),
+			Arguments.of(action, mockedSearchParametersWithNoProperties, true, EmptySearchParametersNotAllowed.class, true, null, false, null, false, null, false, null),
+			Arguments.of(action, mockedSearchParametersWithNoProperties, true, EmptySearchSortParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, true, mockedEmptySortParameters),
+			Arguments.of(action, mockedSearchParametersWithNoProperties, true, EmptySearchPaginationParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, true, mockedEmptyPaginationParameters, true, mockedNotEmptySortParameters),
+			Arguments.of(action, mockedSearchParametersWithNoProperties, true, EmptySearchFilterParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, true, mockedEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters),
 
 			//case: not null with filter search parameters - empty search parameters not allowed
-			Arguments.of(mockedSearchParametersWithFilterProperties, true, EmptySearchPaginationParametersNotAllowed.class, false, null, false, null, false, null, false, null),
-			Arguments.of(mockedSearchParametersWithFilterProperties, true, EmptySearchPaginationParametersNotAllowed.class, false, null, false, null, false, null, true, mockedNotEmptySortParameters),
-			Arguments.of(mockedSearchParametersWithFilterProperties, true, EmptySearchSortParametersNotAllowed.class, false, null, false, null, true, mockedNotEmptyPaginationParameters, false, null),
-			Arguments.of(mockedSearchParametersWithFilterProperties, false, null, false, null, false, null, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters),
-			Arguments.of(mockedSearchParametersWithFilterProperties, true, EmptySearchPaginationParametersNotAllowed.class, false, null, true, null, false, null, false, null),
-			Arguments.of(mockedSearchParametersWithFilterProperties, true, EmptySearchPaginationParametersNotAllowed.class, false, null, true, null, false, null, true, mockedNotEmptySortParameters),
-			Arguments.of(mockedSearchParametersWithFilterProperties, true, EmptySearchSortParametersNotAllowed.class, false, null, true, null, true, mockedNotEmptyPaginationParameters, false, null),
-			Arguments.of(mockedSearchParametersWithFilterProperties, false, null, false, null, true, null, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters),
+			Arguments.of(action, mockedSearchParametersWithFilterProperties, true, EmptySearchPaginationParametersNotAllowed.class, false, null, false, null, false, null, false, null),
+			Arguments.of(action, mockedSearchParametersWithFilterProperties, true, EmptySearchPaginationParametersNotAllowed.class, false, null, false, null, false, null, true, mockedNotEmptySortParameters),
+			Arguments.of(action, mockedSearchParametersWithFilterProperties, true, EmptySearchSortParametersNotAllowed.class, false, null, false, null, true, mockedNotEmptyPaginationParameters, false, null),
+			Arguments.of(action, mockedSearchParametersWithFilterProperties, false, null, false, null, false, null, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters),
+			Arguments.of(action, mockedSearchParametersWithFilterProperties, true, EmptySearchPaginationParametersNotAllowed.class, false, null, true, null, false, null, false, null),
+			Arguments.of(action, mockedSearchParametersWithFilterProperties, true, EmptySearchPaginationParametersNotAllowed.class, false, null, true, null, false, null, true, mockedNotEmptySortParameters),
+			Arguments.of(action, mockedSearchParametersWithFilterProperties, true, EmptySearchSortParametersNotAllowed.class, false, null, true, null, true, mockedNotEmptyPaginationParameters, false, null),
+			Arguments.of(action, mockedSearchParametersWithFilterProperties, false, null, false, null, true, null, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters),
 
 			//case: not null with filter search parameters - empty search parameters allowed
-			Arguments.of(mockedSearchParametersWithFilterProperties, true, EmptySearchPaginationParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, false, null, false, null, false, null),
-			Arguments.of(mockedSearchParametersWithFilterProperties, true, EmptySearchPaginationParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, false, null, false, null, true, mockedNotEmptySortParameters),
-			Arguments.of(mockedSearchParametersWithFilterProperties, true, EmptySearchSortParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, false, null, true, mockedNotEmptyPaginationParameters, false, null),
-			Arguments.of(mockedSearchParametersWithFilterProperties, false, null, true, mockedSearchParametersWithNoProperties, false, null, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters),
-			Arguments.of(mockedSearchParametersWithFilterProperties, true, EmptySearchPaginationParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, false, null, false, null),
-			Arguments.of(mockedSearchParametersWithFilterProperties, true, EmptySearchPaginationParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, false, null, true, mockedNotEmptySortParameters),
-			Arguments.of(mockedSearchParametersWithFilterProperties, true, EmptySearchSortParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, false, null),
-			Arguments.of(mockedSearchParametersWithFilterProperties, false, null, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters),
+			Arguments.of(action, mockedSearchParametersWithFilterProperties, true, EmptySearchPaginationParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, false, null, false, null, false, null),
+			Arguments.of(action, mockedSearchParametersWithFilterProperties, true, EmptySearchPaginationParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, false, null, false, null, true, mockedNotEmptySortParameters),
+			Arguments.of(action, mockedSearchParametersWithFilterProperties, true, EmptySearchSortParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, false, null, true, mockedNotEmptyPaginationParameters, false, null),
+			Arguments.of(action, mockedSearchParametersWithFilterProperties, false, null, true, mockedSearchParametersWithNoProperties, false, null, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters),
+			Arguments.of(action, mockedSearchParametersWithFilterProperties, true, EmptySearchPaginationParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, false, null, false, null),
+			Arguments.of(action, mockedSearchParametersWithFilterProperties, true, EmptySearchPaginationParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, false, null, true, mockedNotEmptySortParameters),
+			Arguments.of(action, mockedSearchParametersWithFilterProperties, true, EmptySearchSortParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, false, null),
+			Arguments.of(action, mockedSearchParametersWithFilterProperties, false, null, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters),
 
 			//case: not null with pagination search parameters - empty search parameters not allowed
-			Arguments.of(mockedSearchParametersWithPaginationProperties, true, EmptySearchFilterParametersNotAllowed.class, false, null, false, null, false, null, false, null),
-			Arguments.of(mockedSearchParametersWithPaginationProperties, true, EmptySearchFilterParametersNotAllowed.class, false, null, false, null, false, null, true, mockedNotEmptySortParameters),
-			Arguments.of(mockedSearchParametersWithPaginationProperties, true, EmptySearchFilterParametersNotAllowed.class, false, null, false, null, true, mockedNotEmptyPaginationParameters, false, null),
-			Arguments.of(mockedSearchParametersWithPaginationProperties, true, EmptySearchFilterParametersNotAllowed.class, false, null, false, null, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters),
-			Arguments.of(mockedSearchParametersWithPaginationProperties, true, EmptySearchSortParametersNotAllowed.class, false, null, true, mockedNotEmptyFilterParameters, false, null, false, null),
-			Arguments.of(mockedSearchParametersWithPaginationProperties, false, null, false, null, true, mockedNotEmptyFilterParameters, false, null, true, mockedNotEmptySortParameters),
-			Arguments.of(mockedSearchParametersWithPaginationProperties, true, EmptySearchSortParametersNotAllowed.class, false, null, true, mockedNotEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, false, null),
-			Arguments.of(mockedSearchParametersWithPaginationProperties, false, null, false, null, true, mockedNotEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters),
+			Arguments.of(action, mockedSearchParametersWithPaginationProperties, true, EmptySearchFilterParametersNotAllowed.class, false, null, false, null, false, null, false, null),
+			Arguments.of(action, mockedSearchParametersWithPaginationProperties, true, EmptySearchFilterParametersNotAllowed.class, false, null, false, null, false, null, true, mockedNotEmptySortParameters),
+			Arguments.of(action, mockedSearchParametersWithPaginationProperties, true, EmptySearchFilterParametersNotAllowed.class, false, null, false, null, true, mockedNotEmptyPaginationParameters, false, null),
+			Arguments.of(action, mockedSearchParametersWithPaginationProperties, true, EmptySearchFilterParametersNotAllowed.class, false, null, false, null, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters),
+			Arguments.of(action, mockedSearchParametersWithPaginationProperties, true, EmptySearchSortParametersNotAllowed.class, false, null, true, mockedNotEmptyFilterParameters, false, null, false, null),
+			Arguments.of(action, mockedSearchParametersWithPaginationProperties, false, null, false, null, true, mockedNotEmptyFilterParameters, false, null, true, mockedNotEmptySortParameters),
+			Arguments.of(action, mockedSearchParametersWithPaginationProperties, true, EmptySearchSortParametersNotAllowed.class, false, null, true, mockedNotEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, false, null),
+			Arguments.of(action, mockedSearchParametersWithPaginationProperties, false, null, false, null, true, mockedNotEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters),
 
 			//case: not null with pagination search parameters - empty search parameters allowed
-			Arguments.of(mockedSearchParametersWithPaginationProperties, true, EmptySearchFilterParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, false, null, false, null, false, null),
-			Arguments.of(mockedSearchParametersWithPaginationProperties, true, EmptySearchFilterParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, false, null, false, null, true, mockedNotEmptySortParameters),
-			Arguments.of(mockedSearchParametersWithPaginationProperties, true, EmptySearchFilterParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, false, null, true, mockedNotEmptyPaginationParameters, false, null),
-			Arguments.of(mockedSearchParametersWithPaginationProperties, true, EmptySearchFilterParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, false, null, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters),
-			Arguments.of(mockedSearchParametersWithPaginationProperties, true, EmptySearchSortParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, false, null, false, null),
-			Arguments.of(mockedSearchParametersWithPaginationProperties, false, null, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, false, null, true, mockedNotEmptySortParameters),
-			Arguments.of(mockedSearchParametersWithPaginationProperties, true, EmptySearchSortParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, false, null),
-			Arguments.of(mockedSearchParametersWithPaginationProperties, false, null, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters),
+			Arguments.of(action, mockedSearchParametersWithPaginationProperties, true, EmptySearchFilterParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, false, null, false, null, false, null),
+			Arguments.of(action, mockedSearchParametersWithPaginationProperties, true, EmptySearchFilterParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, false, null, false, null, true, mockedNotEmptySortParameters),
+			Arguments.of(action, mockedSearchParametersWithPaginationProperties, true, EmptySearchFilterParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, false, null, true, mockedNotEmptyPaginationParameters, false, null),
+			Arguments.of(action, mockedSearchParametersWithPaginationProperties, true, EmptySearchFilterParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, false, null, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters),
+			Arguments.of(action, mockedSearchParametersWithPaginationProperties, true, EmptySearchSortParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, false, null, false, null),
+			Arguments.of(action, mockedSearchParametersWithPaginationProperties, false, null, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, false, null, true, mockedNotEmptySortParameters),
+			Arguments.of(action, mockedSearchParametersWithPaginationProperties, true, EmptySearchSortParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, false, null),
+			Arguments.of(action, mockedSearchParametersWithPaginationProperties, false, null, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters),
 
 			//case: not null with sort search parameters - empty search parameters not allowed
-			Arguments.of(mockedSearchParametersWithSortProperties, true, EmptySearchFilterParametersNotAllowed.class, false, null, false, null, false, null, false, null),
-			Arguments.of(mockedSearchParametersWithSortProperties, true, EmptySearchFilterParametersNotAllowed.class, false, null, false, null, false, null, true, mockedNotEmptySortParameters),
-			Arguments.of(mockedSearchParametersWithSortProperties, true, EmptySearchFilterParametersNotAllowed.class, false, null, false, null, true, mockedNotEmptyPaginationParameters, false, null),
-			Arguments.of(mockedSearchParametersWithSortProperties, true, EmptySearchFilterParametersNotAllowed.class, false, null, false, null, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters),
-			Arguments.of(mockedSearchParametersWithSortProperties, true, EmptySearchPaginationParametersNotAllowed.class, false, null, true, mockedNotEmptyFilterParameters, false, null, false, null),
-			Arguments.of(mockedSearchParametersWithSortProperties, true, EmptySearchPaginationParametersNotAllowed.class, false, null, true, mockedNotEmptyFilterParameters, false, null, true, mockedNotEmptySortParameters),
-			Arguments.of(mockedSearchParametersWithSortProperties, false, null, false, null, true, mockedNotEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, false, null),
-			Arguments.of(mockedSearchParametersWithSortProperties, false, null, false, null, true, mockedNotEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters),
+			Arguments.of(action, mockedSearchParametersWithSortProperties, true, EmptySearchFilterParametersNotAllowed.class, false, null, false, null, false, null, false, null),
+			Arguments.of(action, mockedSearchParametersWithSortProperties, true, EmptySearchFilterParametersNotAllowed.class, false, null, false, null, false, null, true, mockedNotEmptySortParameters),
+			Arguments.of(action, mockedSearchParametersWithSortProperties, true, EmptySearchFilterParametersNotAllowed.class, false, null, false, null, true, mockedNotEmptyPaginationParameters, false, null),
+			Arguments.of(action, mockedSearchParametersWithSortProperties, true, EmptySearchFilterParametersNotAllowed.class, false, null, false, null, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters),
+			Arguments.of(action, mockedSearchParametersWithSortProperties, true, EmptySearchPaginationParametersNotAllowed.class, false, null, true, mockedNotEmptyFilterParameters, false, null, false, null),
+			Arguments.of(action, mockedSearchParametersWithSortProperties, true, EmptySearchPaginationParametersNotAllowed.class, false, null, true, mockedNotEmptyFilterParameters, false, null, true, mockedNotEmptySortParameters),
+			Arguments.of(action, mockedSearchParametersWithSortProperties, false, null, false, null, true, mockedNotEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, false, null),
+			Arguments.of(action, mockedSearchParametersWithSortProperties, false, null, false, null, true, mockedNotEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters),
 
 			//case: not null with sort search parameters - empty search parameters allowed
-			Arguments.of(mockedSearchParametersWithSortProperties, true, EmptySearchFilterParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, false, null, false, null, false, null),
-			Arguments.of(mockedSearchParametersWithSortProperties, true, EmptySearchFilterParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, false, null, false, null, true, mockedNotEmptySortParameters),
-			Arguments.of(mockedSearchParametersWithSortProperties, true, EmptySearchFilterParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, false, null, true, mockedNotEmptyPaginationParameters, false, null),
-			Arguments.of(mockedSearchParametersWithSortProperties, true, EmptySearchFilterParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, false, null, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters),
-			Arguments.of(mockedSearchParametersWithSortProperties, true, EmptySearchPaginationParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, false, null, false, null),
-			Arguments.of(mockedSearchParametersWithSortProperties, true, EmptySearchPaginationParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, false, null, true, mockedNotEmptySortParameters),
-			Arguments.of(mockedSearchParametersWithSortProperties, false, null, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, false, null),
-			Arguments.of(mockedSearchParametersWithSortProperties, false, null, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters),
+			Arguments.of(action, mockedSearchParametersWithSortProperties, true, EmptySearchFilterParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, false, null, false, null, false, null),
+			Arguments.of(action, mockedSearchParametersWithSortProperties, true, EmptySearchFilterParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, false, null, false, null, true, mockedNotEmptySortParameters),
+			Arguments.of(action, mockedSearchParametersWithSortProperties, true, EmptySearchFilterParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, false, null, true, mockedNotEmptyPaginationParameters, false, null),
+			Arguments.of(action, mockedSearchParametersWithSortProperties, true, EmptySearchFilterParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, false, null, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters),
+			Arguments.of(action, mockedSearchParametersWithSortProperties, true, EmptySearchPaginationParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, false, null, false, null),
+			Arguments.of(action, mockedSearchParametersWithSortProperties, true, EmptySearchPaginationParametersNotAllowed.class, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, false, null, true, mockedNotEmptySortParameters),
+			Arguments.of(action, mockedSearchParametersWithSortProperties, false, null, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, false, null),
+			Arguments.of(action, mockedSearchParametersWithSortProperties, false, null, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters),
 
 			//case: not null with all search parameters - empty search parameters not allowed
-			Arguments.of(mockedSearchParametersWithAllProperties, false, null, false, null, false, null, false, null, false, null),
-			Arguments.of(mockedSearchParametersWithAllProperties, false, null, false, null, false, null, false, null, true, mockedNotEmptySortParameters),
-			Arguments.of(mockedSearchParametersWithAllProperties, false, null, false, null, false, null, true, mockedNotEmptyPaginationParameters, false, null),
-			Arguments.of(mockedSearchParametersWithAllProperties, false, null, false, null, false, null, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters),
-			Arguments.of(mockedSearchParametersWithAllProperties, false, null, false, null, true, mockedNotEmptyFilterParameters, false, null, false, null),
-			Arguments.of(mockedSearchParametersWithAllProperties, false, null, false, null, true, mockedNotEmptyFilterParameters, false, null, true, mockedNotEmptySortParameters),
-			Arguments.of(mockedSearchParametersWithAllProperties, false, null, false, null, true, mockedNotEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, false, null),
-			Arguments.of(mockedSearchParametersWithAllProperties, false, null, false, null, true, mockedNotEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters),
+			Arguments.of(action, mockedSearchParametersWithAllProperties, false, null, false, null, false, null, false, null, false, null),
+			Arguments.of(action, mockedSearchParametersWithAllProperties, false, null, false, null, false, null, false, null, true, mockedNotEmptySortParameters),
+			Arguments.of(action, mockedSearchParametersWithAllProperties, false, null, false, null, false, null, true, mockedNotEmptyPaginationParameters, false, null),
+			Arguments.of(action, mockedSearchParametersWithAllProperties, false, null, false, null, false, null, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters),
+			Arguments.of(action, mockedSearchParametersWithAllProperties, false, null, false, null, true, mockedNotEmptyFilterParameters, false, null, false, null),
+			Arguments.of(action, mockedSearchParametersWithAllProperties, false, null, false, null, true, mockedNotEmptyFilterParameters, false, null, true, mockedNotEmptySortParameters),
+			Arguments.of(action, mockedSearchParametersWithAllProperties, false, null, false, null, true, mockedNotEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, false, null),
+			Arguments.of(action, mockedSearchParametersWithAllProperties, false, null, false, null, true, mockedNotEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters),
 
 			//case: not null with all search parameters - empty search parameters allowed
-			Arguments.of(mockedSearchParametersWithAllProperties, false, null, true, mockedSearchParametersWithNoProperties, false, null, false, null, false, null),
-			Arguments.of(mockedSearchParametersWithAllProperties, false, null, true, mockedSearchParametersWithNoProperties, false, null, false, null, true, mockedNotEmptySortParameters),
-			Arguments.of(mockedSearchParametersWithAllProperties, false, null, true, mockedSearchParametersWithNoProperties, false, null, true, mockedNotEmptyPaginationParameters, false, null),
-			Arguments.of(mockedSearchParametersWithAllProperties, false, null, true, mockedSearchParametersWithNoProperties, false, null, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters),
-			Arguments.of(mockedSearchParametersWithAllProperties, false, null, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, false, null, false, null),
-			Arguments.of(mockedSearchParametersWithAllProperties, false, null, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, false, null, true, mockedNotEmptySortParameters),
-			Arguments.of(mockedSearchParametersWithAllProperties, false, null, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, false, null),
-			Arguments.of(mockedSearchParametersWithAllProperties, false, null, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters)
+			Arguments.of(action, mockedSearchParametersWithAllProperties, false, null, true, mockedSearchParametersWithNoProperties, false, null, false, null, false, null),
+			Arguments.of(action, mockedSearchParametersWithAllProperties, false, null, true, mockedSearchParametersWithNoProperties, false, null, false, null, true, mockedNotEmptySortParameters),
+			Arguments.of(action, mockedSearchParametersWithAllProperties, false, null, true, mockedSearchParametersWithNoProperties, false, null, true, mockedNotEmptyPaginationParameters, false, null),
+			Arguments.of(action, mockedSearchParametersWithAllProperties, false, null, true, mockedSearchParametersWithNoProperties, false, null, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters),
+			Arguments.of(action, mockedSearchParametersWithAllProperties, false, null, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, false, null, false, null),
+			Arguments.of(action, mockedSearchParametersWithAllProperties, false, null, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, false, null, true, mockedNotEmptySortParameters),
+			Arguments.of(action, mockedSearchParametersWithAllProperties, false, null, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, false, null),
+			Arguments.of(action, mockedSearchParametersWithAllProperties, false, null, true, mockedSearchParametersWithNoProperties, true, mockedNotEmptyFilterParameters, true, mockedNotEmptyPaginationParameters, true, mockedNotEmptySortParameters)
 		);
 	}
 
-//	private static Stream<Arguments> search_parametrized_argument_provider(){
-////		return Stream.of(null);
-////	}
+	private static Stream<Arguments> count_parametrized_argument_provider(){
+		return generateParameterStream((searchService, searchParameters) -> searchService.count(searchParameters));
+	}
+
+	private static Stream<Arguments> search_parametrized_argument_provider(){
+		return generateParameterStream((searchService, searchParameters) -> searchService.search(searchParameters));
+	}
 
 	@ParameterizedTest(name = "{index} | Empty allowed: SP {3} F {5} P {7} S {9} | Exception Expected: {1}")
-	@MethodSource(value = {"count_parametrized_argument_provider"})
+	@MethodSource(value = {"count_parametrized_argument_provider", "search_parametrized_argument_provider"})
 	<K extends Class<Throwable>> void do_with_parameters(
+		BiConsumer<SearchService, SearchParameters> action,
 		final SearchParameters fixtureSearchParameters,
 		boolean isExceptionExpected,
 		final K exceptionClass,
@@ -227,7 +233,6 @@ class AbstractSearchServiceTest {
 		SearchSortParameters fallbackSortParameters
 	) {
 		AbstractSearchService fixtureSearchService = mock(AbstractSearchService.class, CALLS_REAL_METHODS);
-		ArgumentCaptor<SearchParameters> searchParametersArgumentCaptor = ArgumentCaptor.forClass(SearchParameters.class);
 
 		//given
 		lenient().when(fixtureSearchService.isSearchWithEmptySearchParametersAllowed()).thenReturn(isEmptySearchParametersAllowed);
@@ -243,16 +248,16 @@ class AbstractSearchServiceTest {
 		lenient().when(fixtureSearchService.getFallbackSearchSortParametersInstance()).thenReturn(fallbackSortParameters);
 
 		//when
+		Executable executable = () -> action.accept(fixtureSearchService, fixtureSearchParameters);
+
 		if(isExceptionExpected){
-			Throwable exception = assertThrows(exceptionClass, () -> fixtureSearchService.count(fixtureSearchParameters));
+			Throwable exception = assertThrows(exceptionClass, executable);
 			assertNotNull(exception);
 		} else {
-			assertDoesNotThrow(() -> fixtureSearchService.count(fixtureSearchParameters));
+			assertDoesNotThrow(executable);
 		}
 
 		//then
-		verify(fixtureSearchService).count(searchParametersArgumentCaptor.capture());
-		assertSame(fixtureSearchParameters, searchParametersArgumentCaptor.getValue());
 
 		int isSearchWithEmptySearchParametersAllowedInvokeTimes = 0;
 		int getFallbackSearchParametersInstanceInvokeTimes = 0;
