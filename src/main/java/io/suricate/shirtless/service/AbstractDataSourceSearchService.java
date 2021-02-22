@@ -10,7 +10,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
 
-public abstract class AbstractDataStoreSearchService<
+public abstract class AbstractDataSourceSearchService<
 			O,
 			F extends SearchFilterParameters,
 			FT,
@@ -21,19 +21,19 @@ public abstract class AbstractDataStoreSearchService<
 			SA extends SearchParametersAdapter<F, FT, P, PT, S, ST>,
 			DS
 		> extends AbstractAdaptableSearchService<O, F, FT, P, PT, S, ST, SP, SU, SA>
-		implements DataStoreSearchService<O, F, FT, P, PT, S, ST, SP, SU, SA, DS> {
+		implements DataSourceSearchService<O, F, FT, P, PT, S, ST, SP, SU, SA, DS> {
 
 	@Getter(AccessLevel.PROTECTED)
-	private final DS dataStore;
+	private final DS dataSource;
 
-	public AbstractDataStoreSearchService(
+	public AbstractDataSourceSearchService(
 		@NonNull SU searchParamsSupervisor,
 		@NonNull SA searchParametersAdapter,
-		@NonNull DS dataStore
+		@NonNull DS dataSource
 	) {
 		super(searchParamsSupervisor, searchParametersAdapter);
 
-		this.dataStore = dataStore;
+		this.dataSource = dataSource;
 	}
 
 }

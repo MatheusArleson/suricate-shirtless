@@ -1,29 +1,22 @@
 package io.suricate.shirtless.service;
 
-import io.suricate.shirtless.controller.AbstractDefaultSearchController;
-import io.suricate.shirtless.exceptions.search.parameters.adapter.EmptyAdaptedSearchFilterParametersNotAllowed;
-import io.suricate.shirtless.exceptions.search.parameters.adapter.EmptyAdaptedSearchPaginationParametersNotAllowed;
-import io.suricate.shirtless.exceptions.search.parameters.adapter.EmptyAdaptedSearchSortParametersNotAllowed;
+import io.suricate.shirtless.exceptions.search.parameters.adapter.EmptyAdaptedSearchFilterParametersNotAllowedException;
+import io.suricate.shirtless.exceptions.search.parameters.adapter.EmptyAdaptedSearchPaginationParametersNotAllowedException;
+import io.suricate.shirtless.exceptions.search.parameters.adapter.EmptyAdaptedSearchSortParametersNotAllowedException;
 import io.suricate.shirtless.model.adapter.SearchParametersAdapter;
 import io.suricate.shirtless.model.parameter.SearchParameters;
 import io.suricate.shirtless.model.parameter.filter.SearchFilterParameters;
 import io.suricate.shirtless.model.parameter.pagination.SearchPaginationParameters;
 import io.suricate.shirtless.model.parameter.sort.SearchSortParameters;
 import io.suricate.shirtless.service.params.supervisor.AdaptedSearchParametersSupervisor;
-import io.suricate.shirtless.service.params.supervisor.SearchParametersSupervisor;
-import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -79,13 +72,36 @@ class AbstractAdaptableSearchServiceTest {
 		when(fixtureSearchSupervisor.isSearchWithEmptyAdaptedSearchFilterParametersAllowed()).thenReturn(Boolean.FALSE);
 
 		//when
-		EmptyAdaptedSearchFilterParametersNotAllowed exception = assertThrows(
-			EmptyAdaptedSearchFilterParametersNotAllowed.class,
+		EmptyAdaptedSearchFilterParametersNotAllowedException exception = assertThrows(
+			EmptyAdaptedSearchFilterParametersNotAllowedException.class,
 			() -> fixtureSearchService.count(fixtureSearchParameters)
 		);
 
 		//then
 		verify(fixtureSearchService, times(1)).count(fixtureSearchParameters);
+		verify(fixtureSearchParametersAdapter, times(1)).adaptFilter(fixtureSearchParameters.getFilterParameters());
+
+		assertNotNull(exception);
+	}
+
+	@Test
+	void search_shouldThrowException_whenSearchWithEmptyAdaptedSearchFilter_isNotAllowed_andCouldNotGenerateAdaptedFilter() {
+		//given
+		SearchParameters fixtureSearchParameters = this.searchParameters;
+		AbstractAdaptableSearchService fixtureSearchService = this.adaptableSearchService;
+		SearchParametersAdapter fixtureSearchParametersAdapter = this.searchParametersAdapter;
+
+		AdaptedSearchParametersSupervisor fixtureSearchSupervisor = this.searchParametersSupervisor;
+		when(fixtureSearchSupervisor.isSearchWithEmptyAdaptedSearchFilterParametersAllowed()).thenReturn(Boolean.FALSE);
+
+		//when
+		EmptyAdaptedSearchFilterParametersNotAllowedException exception = assertThrows(
+			EmptyAdaptedSearchFilterParametersNotAllowedException.class,
+			() -> fixtureSearchService.search(fixtureSearchParameters)
+		);
+
+		//then
+		verify(fixtureSearchService, times(1)).search(fixtureSearchParameters);
 		verify(fixtureSearchParametersAdapter, times(1)).adaptFilter(fixtureSearchParameters.getFilterParameters());
 
 		assertNotNull(exception);
@@ -103,13 +119,38 @@ class AbstractAdaptableSearchServiceTest {
 		when(fixtureSearchSupervisor.isSearchWithEmptyAdaptedSearchPaginationParametersAllowed()).thenReturn(Boolean.FALSE);
 
 		//when
-		EmptyAdaptedSearchPaginationParametersNotAllowed exception = assertThrows(
-			EmptyAdaptedSearchPaginationParametersNotAllowed.class,
+		EmptyAdaptedSearchPaginationParametersNotAllowedException exception = assertThrows(
+			EmptyAdaptedSearchPaginationParametersNotAllowedException.class,
 			() -> fixtureSearchService.count(fixtureSearchParameters)
 		);
 
 		//then
 		verify(fixtureSearchService, times(1)).count(fixtureSearchParameters);
+		verify(fixtureSearchParametersAdapter, times(1)).adaptFilter(fixtureSearchParameters.getFilterParameters());
+		verify(fixtureSearchParametersAdapter, times(1)).adaptPagination(fixtureSearchParameters.getPaginationParameters());
+
+		assertNotNull(exception);
+	}
+
+	@Test
+	void search_shouldThrowException_whenSearchWithEmptyAdaptedSearchPagination_isNotAllowed_andCouldNotGenerateAdaptedPagination() {
+		//given
+		SearchParameters fixtureSearchParameters = this.searchParameters;
+		AbstractAdaptableSearchService fixtureSearchService = this.adaptableSearchService;
+		SearchParametersAdapter fixtureSearchParametersAdapter = this.searchParametersAdapter;
+
+		AdaptedSearchParametersSupervisor fixtureSearchSupervisor = this.searchParametersSupervisor;
+		when(fixtureSearchSupervisor.isSearchWithEmptyAdaptedSearchFilterParametersAllowed()).thenReturn(Boolean.TRUE);
+		when(fixtureSearchSupervisor.isSearchWithEmptyAdaptedSearchPaginationParametersAllowed()).thenReturn(Boolean.FALSE);
+
+		//when
+		EmptyAdaptedSearchPaginationParametersNotAllowedException exception = assertThrows(
+			EmptyAdaptedSearchPaginationParametersNotAllowedException.class,
+			() -> fixtureSearchService.search(fixtureSearchParameters)
+		);
+
+		//then
+		verify(fixtureSearchService, times(1)).search(fixtureSearchParameters);
 		verify(fixtureSearchParametersAdapter, times(1)).adaptFilter(fixtureSearchParameters.getFilterParameters());
 		verify(fixtureSearchParametersAdapter, times(1)).adaptPagination(fixtureSearchParameters.getPaginationParameters());
 
@@ -129,13 +170,40 @@ class AbstractAdaptableSearchServiceTest {
 		when(fixtureSearchSupervisor.isSearchWithEmptyAdaptedSearchSortParametersAllowed()).thenReturn(Boolean.FALSE);
 
 		//when
-		EmptyAdaptedSearchSortParametersNotAllowed exception = assertThrows(
-			EmptyAdaptedSearchSortParametersNotAllowed.class,
+		EmptyAdaptedSearchSortParametersNotAllowedException exception = assertThrows(
+			EmptyAdaptedSearchSortParametersNotAllowedException.class,
 			() -> fixtureSearchService.count(fixtureSearchParameters)
 		);
 
 		//then
 		verify(fixtureSearchService, times(1)).count(fixtureSearchParameters);
+		verify(fixtureSearchParametersAdapter, times(1)).adaptFilter(fixtureSearchParameters.getFilterParameters());
+		verify(fixtureSearchParametersAdapter, times(1)).adaptPagination(fixtureSearchParameters.getPaginationParameters());
+		verify(fixtureSearchParametersAdapter, times(1)).adaptSort(fixtureSearchParameters.getSortParameters());
+
+		assertNotNull(exception);
+	}
+
+	@Test
+	void search_shouldThrowException_whenSearchWithEmptyAdaptedSearchSort_isNotAllowed_andCouldNotGenerateAdaptedSort() {
+		//given
+		SearchParameters fixtureSearchParameters = this.searchParameters;
+		AbstractAdaptableSearchService fixtureSearchService = this.adaptableSearchService;
+		SearchParametersAdapter fixtureSearchParametersAdapter = this.searchParametersAdapter;
+
+		AdaptedSearchParametersSupervisor fixtureSearchSupervisor = this.searchParametersSupervisor;
+		when(fixtureSearchSupervisor.isSearchWithEmptyAdaptedSearchFilterParametersAllowed()).thenReturn(Boolean.TRUE);
+		when(fixtureSearchSupervisor.isSearchWithEmptyAdaptedSearchPaginationParametersAllowed()).thenReturn(Boolean.TRUE);
+		when(fixtureSearchSupervisor.isSearchWithEmptyAdaptedSearchSortParametersAllowed()).thenReturn(Boolean.FALSE);
+
+		//when
+		EmptyAdaptedSearchSortParametersNotAllowedException exception = assertThrows(
+			EmptyAdaptedSearchSortParametersNotAllowedException.class,
+			() -> fixtureSearchService.search(fixtureSearchParameters)
+		);
+
+		//then
+		verify(fixtureSearchService, times(1)).search(fixtureSearchParameters);
 		verify(fixtureSearchParametersAdapter, times(1)).adaptFilter(fixtureSearchParameters.getFilterParameters());
 		verify(fixtureSearchParametersAdapter, times(1)).adaptPagination(fixtureSearchParameters.getPaginationParameters());
 		verify(fixtureSearchParametersAdapter, times(1)).adaptSort(fixtureSearchParameters.getSortParameters());
@@ -161,6 +229,32 @@ class AbstractAdaptableSearchServiceTest {
 
 		//then
 		verify(fixtureSearchService, times(1)).count(fixtureSearchParameters);
+		verify(fixtureSearchParametersAdapter, times(1)).adaptFilter(fixtureSearchParameters.getFilterParameters());
+		verify(fixtureSearchParametersAdapter, times(1)).adaptPagination(fixtureSearchParameters.getPaginationParameters());
+		verify(fixtureSearchParametersAdapter, times(1)).adaptSort(fixtureSearchParameters.getSortParameters());
+		verify(fixtureSearchSupervisor, times(0)).isSearchWithEmptyAdaptedSearchFilterParametersAllowed();
+		verify(fixtureSearchSupervisor, times(0)).isSearchWithEmptyAdaptedSearchPaginationParametersAllowed();
+		verify(fixtureSearchSupervisor, times(0)).isSearchWithEmptyAdaptedSearchSortParametersAllowed();
+	}
+
+	@Test
+	void search_shouldNotThrowException_norCheckWithSupervisor_whenAdaptedObjectsCanBeGenerated() {
+		//given
+		SearchParameters fixtureSearchParameters = this.searchParameters;
+		AbstractAdaptableSearchService fixtureSearchService = this.adaptableSearchService;
+
+		SearchParametersAdapter fixtureSearchParametersAdapter = this.searchParametersAdapter;
+		when(fixtureSearchParametersAdapter.adaptFilter(any(SearchFilterParameters.class))).thenReturn(Optional.of("mocked"));
+		when(fixtureSearchParametersAdapter.adaptPagination(any(SearchPaginationParameters.class))).thenReturn(Optional.of("mocked"));
+		when(fixtureSearchParametersAdapter.adaptSort(any(SearchSortParameters.class))).thenReturn(Optional.of("mocked"));
+
+		AdaptedSearchParametersSupervisor fixtureSearchSupervisor = this.searchParametersSupervisor;
+
+		//when
+		fixtureSearchService.search(fixtureSearchParameters);
+
+		//then
+		verify(fixtureSearchService, times(1)).search(fixtureSearchParameters);
 		verify(fixtureSearchParametersAdapter, times(1)).adaptFilter(fixtureSearchParameters.getFilterParameters());
 		verify(fixtureSearchParametersAdapter, times(1)).adaptPagination(fixtureSearchParameters.getPaginationParameters());
 		verify(fixtureSearchParametersAdapter, times(1)).adaptSort(fixtureSearchParameters.getSortParameters());

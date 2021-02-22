@@ -1,8 +1,8 @@
 package io.suricate.shirtless.service;
 
-import io.suricate.shirtless.exceptions.search.parameters.adapter.EmptyAdaptedSearchFilterParametersNotAllowed;
-import io.suricate.shirtless.exceptions.search.parameters.adapter.EmptyAdaptedSearchPaginationParametersNotAllowed;
-import io.suricate.shirtless.exceptions.search.parameters.adapter.EmptyAdaptedSearchSortParametersNotAllowed;
+import io.suricate.shirtless.exceptions.search.parameters.adapter.EmptyAdaptedSearchFilterParametersNotAllowedException;
+import io.suricate.shirtless.exceptions.search.parameters.adapter.EmptyAdaptedSearchPaginationParametersNotAllowedException;
+import io.suricate.shirtless.exceptions.search.parameters.adapter.EmptyAdaptedSearchSortParametersNotAllowedException;
 import io.suricate.shirtless.model.adapter.SearchParametersAdapter;
 import io.suricate.shirtless.model.parameter.SearchParameters;
 import io.suricate.shirtless.model.parameter.filter.SearchFilterParameters;
@@ -60,7 +60,7 @@ public abstract class AbstractAdaptableSearchService<
 
 	protected abstract List<O> search(FT adaptedFilter, PT adapterPagination, ST adapterSort);
 
-	private FT adaptFilterParameters(F filterParameters) throws EmptyAdaptedSearchFilterParametersNotAllowed {
+	private FT adaptFilterParameters(F filterParameters) throws EmptyAdaptedSearchFilterParametersNotAllowedException {
 		Optional<FT> adaptedFilterOpt = this.getSearchParametersAdapter().adaptFilter(filterParameters);
 
 		if (adaptedFilterOpt.isPresent()) {
@@ -69,12 +69,12 @@ public abstract class AbstractAdaptableSearchService<
 			if (this.getSearchParamsSupervisor().isSearchWithEmptyAdaptedSearchFilterParametersAllowed()) {
 				return null;
 			} else {
-				throw new EmptyAdaptedSearchFilterParametersNotAllowed("Search with empty adapted filter parameters is not allowed.");
+				throw new EmptyAdaptedSearchFilterParametersNotAllowedException("Search with empty adapted filter parameters is not allowed.");
 			}
 		}
 	}
 
-	private PT adaptPaginationParameters(P paginationParameters) throws EmptyAdaptedSearchPaginationParametersNotAllowed {
+	private PT adaptPaginationParameters(P paginationParameters) throws EmptyAdaptedSearchPaginationParametersNotAllowedException {
 		Optional<PT> adaptedPaginationOpt = this.getSearchParametersAdapter().adaptPagination(paginationParameters);
 
 		if (adaptedPaginationOpt.isPresent()) {
@@ -83,12 +83,12 @@ public abstract class AbstractAdaptableSearchService<
 			if (this.getSearchParamsSupervisor().isSearchWithEmptyAdaptedSearchPaginationParametersAllowed()) {
 				return null;
 			} else {
-				throw new EmptyAdaptedSearchPaginationParametersNotAllowed("Search with empty adapted pagination parameters is not allowed.");
+				throw new EmptyAdaptedSearchPaginationParametersNotAllowedException("Search with empty adapted pagination parameters is not allowed.");
 			}
 		}
 	}
 
-	private ST adaptSortParameters(S sortParameters) throws EmptyAdaptedSearchSortParametersNotAllowed {
+	private ST adaptSortParameters(S sortParameters) throws EmptyAdaptedSearchSortParametersNotAllowedException {
 		Optional<ST> adaptedSortOpt = this.getSearchParametersAdapter().adaptSort(sortParameters);
 
 		if (adaptedSortOpt.isPresent()) {
@@ -97,7 +97,7 @@ public abstract class AbstractAdaptableSearchService<
 			if (this.getSearchParamsSupervisor().isSearchWithEmptyAdaptedSearchSortParametersAllowed()) {
 				return null;
 			} else {
-				throw new EmptyAdaptedSearchSortParametersNotAllowed("Search with empty adapted sort parameters is not allowed.");
+				throw new EmptyAdaptedSearchSortParametersNotAllowedException("Search with empty adapted sort parameters is not allowed.");
 			}
 		}
 	}

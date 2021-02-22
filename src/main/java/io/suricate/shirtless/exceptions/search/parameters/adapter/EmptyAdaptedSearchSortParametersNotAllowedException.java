@@ -1,24 +1,27 @@
 package io.suricate.shirtless.exceptions.search.parameters.adapter;
 
 import io.suricate.shirtless.model.parameter.SearchParameters;
+import io.suricate.shirtless.model.parameter.sort.SearchSortParameters;
 import lombok.NonNull;
 
 /**
- * Root exception triggered when the passed {@link SearchParameters} and its sections could not be adapted.
+ * Exception triggered when the passed {@link SearchSortParameters} could not be adapted
+ * <br/>OR<br/>
+ * adapted result is empty AND emptiness is not allowed in a operation.
  *
+ * @see AdapterException
  * @see EmptyAdaptedSearchFilterParametersNotAllowedException
  * @see EmptyAdaptedSearchPaginationParametersNotAllowedException
- * @see EmptyAdaptedSearchSortParametersNotAllowedException
  *
  */
-public class AdapterException extends RuntimeException {
+public class EmptyAdaptedSearchSortParametersNotAllowedException extends AdapterException {
 
 	/**
 	 * Message only constructor.
 	 *
 	 * @param message contains the message for the exception.
 	 */
-	public AdapterException(@NonNull String message) {
+	public EmptyAdaptedSearchSortParametersNotAllowedException(@NonNull String message) {
 		super(message);
 	}
 
@@ -28,7 +31,7 @@ public class AdapterException extends RuntimeException {
 	 * @param message contains the message for the exception.
 	 * @param cause contains the cause of the exception.
 	 */
-	public AdapterException(@NonNull String message, @NonNull Throwable cause) {
+	public EmptyAdaptedSearchSortParametersNotAllowedException(@NonNull String message, @NonNull Throwable cause) {
 		super(message, cause);
 	}
 

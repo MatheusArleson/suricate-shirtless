@@ -7,7 +7,7 @@ import io.suricate.shirtless.model.parameter.pagination.SearchPaginationParamete
 import io.suricate.shirtless.model.parameter.sort.SearchSortParameters;
 import io.suricate.shirtless.service.params.supervisor.SearchParametersSupervisor;
 
-public interface DataStoreSearchService<
+public interface DataSourceSearchService<
 			O,
 			F extends SearchFilterParameters, FT,
 			P extends SearchPaginationParameters, PT,
