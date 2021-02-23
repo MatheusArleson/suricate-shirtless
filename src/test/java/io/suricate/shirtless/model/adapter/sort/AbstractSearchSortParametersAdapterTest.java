@@ -60,7 +60,7 @@ class AbstractSearchSortParametersAdapterTest {
 		//given
 		when(fixtureParameters.getSortCodes()).thenReturn(new String[]{"str"});
 		when(fixtureParameters.getSortDirections()).thenReturn(new String[]{"str"});
-		when(fixtureParametersAdapter.generateAdapted(any(String[].class), any(String[].class))).thenReturn(Optional.of(anyString()));
+		when(fixtureParametersAdapter.generateAdapted(fixtureParameters)).thenReturn(Optional.of("adapted"));
 
 		//when
 		Optional fixtureResult = fixtureParametersAdapter.adaptSort(fixtureParameters);

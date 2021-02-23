@@ -2,7 +2,7 @@ package io.suricate.shirtless.model.parameter.sort.key;
 
 /**
  * Base interface for a Sort Key.
- * <p>
+ * <br><br>
  * Instances will have: <br>
  * Label: What this sort key represents. Consider placing a human readable description. <br>
  * Code: To be used on the translation of the {@link io.suricate.shirtless.model.parameter.sort.SearchSortParameters}. Should be a unique per member. <br>

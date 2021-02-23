@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -43,8 +44,8 @@ public abstract class AbstractEnumBackedSearchSortKeyAdapter<
 		if (Objects.isNull(this.codeToEnumMemberMap)) {
 			SearchSortKey[] enumMembers = this.getAllEnumMembers();
 			Map<String, SearchSortKey> map = Arrays.stream(enumMembers).collect(Collectors.toMap(
-					SearchSortKey::getCode,
-					(searchSortKey -> searchSortKey)
+				SearchSortKey::getCode,
+				Function.identity()
 			));
 
 			this.codeToEnumMemberMap = map;

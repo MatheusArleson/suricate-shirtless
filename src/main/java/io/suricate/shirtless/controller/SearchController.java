@@ -11,13 +11,13 @@ import java.util.Map;
 
 /**
  * Base interface for Search Controllers.
- * <p>
+ * <br><br>
  * Instances will have methods to cover most of search use cases out of the box.
- * <p>
+ * <br><br>
  * Search Controller uses the concept of <b>Generics.</b>
  * In other words, implementations can vary the actual type of each aspect (filter, pagination and sort)
  * as long as the base interfaces are implemented by the custom objects.
- * <p>
+ * <br><br>
  * Search Controller delegates operations - by default - to the Search Service Class provided on generics.
  *
  * @param <O> Output Class of Search Results
@@ -39,7 +39,7 @@ public interface SearchController<
 
 	/**
 	 * Expose the total number of Search Results Possible.
-	 * <p>
+	 * <br><br>
 	 * For this method, does not make sense to pass any parameters.
 	 *
 	 * @return the total number of Search Results possible.
@@ -48,7 +48,7 @@ public interface SearchController<
 
 	/**
 	 * Counts the number of Search Results that match the Search Parameters.
-	 * <p>
+	 * <br><br>
 	 * For this method, only the filter aspect of the Search Parameters is important.
 	 * Other aspects, pagination/sorting, should not be considered.
 	 *
@@ -59,9 +59,9 @@ public interface SearchController<
 
 	/**
 	 * Gets the Search Results that match the Search Parameters.
-	 * <p>
+	 * <br><br>
 	 * For this method, all aspects of the Search Parameters should be evaluated.
-	 * <p>
+	 * <br><br>
 	 * The type of the Search Results are defined be the generic parameter of this interface.
 	 * Allowing implementations to pass any desired class.
 	 *
@@ -72,7 +72,7 @@ public interface SearchController<
 
 	/**
 	 * Exposes the model of the Search Filter Parameters in key-value format.
-	 * <p>
+	 * <br><br>
 	 * This method allows introspection of the available filter by clients.
 	 * Eg. A Client that never used the API should be able to get information about the available filter parameters.
 	 *
@@ -82,7 +82,7 @@ public interface SearchController<
 
 	/**
 	 * Exposes the model of the Search Pagination Parameters in key-value format.
-	 * <p>
+	 * <br><br>
 	 * This method allows introspection of the available pagination by clients.
 	 * Eg. A Client that never used the API should be able to get information about the available pagination parameters.
 	 *
@@ -92,7 +92,7 @@ public interface SearchController<
 
 	/**
 	 * Exposes the model of the Search Sort Parameters in key-value format.
-	 * <p>
+	 * <br><br>
 	 * This method allows introspection of the available sort by clients.
 	 * Eg. A Client that never used the API should be able to get information about the available sort parameters.
 	 *

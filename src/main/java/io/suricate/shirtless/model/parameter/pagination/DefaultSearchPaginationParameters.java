@@ -4,7 +4,7 @@ import io.suricate.shirtless.model.parameter.SearchParameters;
 
 /**
  * Default Implementation of Search Pagination Parameters.
- * <p>
+ * <br><br>
  * This implementation aims to provide less generics overhead downstream,
  * while covering the most common cases.
  *

@@ -14,11 +14,11 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * Base abstraction for Search Controller implementations.
- * <p>
+ * Base abstraction for {@link SearchController} implementations.
+ * <br><br>
  * Extensions of this class can add behaviour
  * while keeping the interface contract intact.
- * <p>
+ * <br><br>
  * <b>Note about constructors:</b> If Dependency Injection is used,
  * the No-Args constructor <b>SHOULD</b> be visible on the implementation.
  * This is due to construction/initialization on Dependency Inversion Frameworks
@@ -45,7 +45,6 @@ public abstract class AbstractSearchController<
 
 	/**
 	 * The service that will perform the search operation and provide data to the controller.
-	 * <p>
 	 *
 	 * @see SearchService
 	 */

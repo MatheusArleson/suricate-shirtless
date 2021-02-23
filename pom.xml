@@ -58,6 +58,7 @@
 		<jacoco.maven.plugin.version>0.8.5</jacoco.maven.plugin.version>
 		<site.maven.plugin.version>3.8.2</site.maven.plugin.version>
 		<project.info.reports.maven.plugin.version>3.0.0</project.info.reports.maven.plugin.version>
+		<sources.maven.plugin.version>3.2.0</sources.maven.plugin.version>
 		<javadoc.maven.plugin.version>3.1.1</javadoc.maven.plugin.version>
 		<javadoc.doclet.report.maven.plugin.version>1.1.0</javadoc.doclet.report.maven.plugin.version>
 
@@ -187,8 +188,30 @@
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>${sources.maven.plugin.version}</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>${javadoc.maven.plugin.version}</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

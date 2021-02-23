@@ -8,13 +8,14 @@ import io.suricate.shirtless.model.parameter.sort.SearchSortParameters;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Base abstraction for Search Service implementations.
- * <p>
+ * <br><br>
  * Extensions of this class can add behaviour
  * while keeping the interface contract intact.
- * <p>
+ * <br><br>
  * <b>Note about constructors:</b> If Dependency Injection is used,
  * the No-Args constructor <b>SHOULD</b> be visible on the implementation.
  * This is due to construction/initialization on Dependency Inversion Frameworks
@@ -48,7 +49,7 @@ public abstract class AbstractSearchService<
 	/**
 	 * Counts the Search Results that match the Search Parameters - after emptiness on parameters is evaluated
 	 * (and fallbacks are applied on them).
-	 * <p>
+	 * <br><br>
 	 * The type of the Filter/Pagination/Sort Parameters are defined be the generic parameter of this interface.
 	 * Allowing implementations to pass any desired class.
 	 *
@@ -72,7 +73,7 @@ public abstract class AbstractSearchService<
 	/**
 	 * Gets the Search Results that match the Search Parameters - after emptiness on parameters is evaluated
 	 * (and fallbacks are applied on them).
-	 * <p>
+	 * <br><br>
 	 * The type of the Filter/Pagination/Sort Parameters are defined be the generic parameter of this interface.
 	 * Allowing implementations to pass any desired class.
 	 *
@@ -85,7 +86,7 @@ public abstract class AbstractSearchService<
 
 	/**
 	 * Method responsible for the handling of whole search parameters passed for the search operation.
-	 * <p>
+	 * <br><br>
 	 * It introspects the search parameters for emptiness,
 	 * checks if service allows it (applies fallback)
 	 * or not (throws an exception).
@@ -115,7 +116,7 @@ public abstract class AbstractSearchService<
 
 	/**
 	 * Method responsible for the handling of filter parameters of the whole search parameters.
-	 * <p>
+	 * <br><br>
 	 * It introspects the search parameters filter property for emptiness,
 	 * checks if service allows it (applies fallback)
 	 * or not (throws an exception).
@@ -145,7 +146,7 @@ public abstract class AbstractSearchService<
 
 	/**
 	 * Method responsible for the handling of pagination parameters of the whole search parameters.
-	 * <p>
+	 * <br><br>
 	 * It introspects the search parameters pagination property for emptiness,
 	 * checks if service allows it (applies fallback)
 	 * or not (throws an exception).
@@ -175,7 +176,7 @@ public abstract class AbstractSearchService<
 
 	/**
 	 * Method responsible for the handling of sort parameters of the whole search parameters.
-	 * <p>
+	 * <br><br>
 	 * It introspects the search parameters sort property for emptiness,
 	 * checks if service allows it (applies fallback)
 	 * or not (throws an exception).
@@ -202,4 +203,21 @@ public abstract class AbstractSearchService<
 			}
 		}
 	}
+
+
+	@Override
+	public Map<String, String> filterMetaModel() {
+		return null;
+	}
+
+	@Override
+	public Map<String, String> paginationMetaModel() {
+		return null;
+	}
+
+	@Override
+	public Map<String, String> sortMetaModel() {
+		return null;
+	}
+
 }

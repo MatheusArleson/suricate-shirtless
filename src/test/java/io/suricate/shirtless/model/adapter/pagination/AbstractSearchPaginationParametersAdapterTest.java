@@ -60,7 +60,7 @@ class AbstractSearchPaginationParametersAdapterTest {
 		//given
 		when(fixtureParameters.getPageNumber()).thenReturn(9);
 		when(fixtureParameters.getPageSize()).thenReturn(9);
-		when(fixtureParametersAdapter.generateAdapted(anyInt(), anyInt())).thenReturn(Optional.of(anyString()));
+		when(fixtureParametersAdapter.generateAdapted(fixtureParameters)).thenReturn(Optional.of("adapted"));
 
 		//when
 		Optional fixtureResult = fixtureParametersAdapter.adaptPagination(fixtureParameters);

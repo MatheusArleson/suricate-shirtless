@@ -11,6 +11,12 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.Optional;
 
+/**
+ *
+ * @param <S>
+ * @param <T>
+ * @param <SKA>
+ */
 @RequiredArgsConstructor
 public abstract class AbstractSortKeyBackedSearchSortParametersAdapter<
 			S extends SearchSortParameters,
@@ -20,10 +26,11 @@ public abstract class AbstractSortKeyBackedSearchSortParametersAdapter<
 
 	@Getter(AccessLevel.PROTECTED)
 	@NonNull
-	private SKA sortKeyAdapter;
+	private final SKA sortKeyAdapter;
 
 	@Override
-	protected Optional<T> generateAdapted(String[] sortCodes, String[] sortDirections) {
+	protected Optional<T> generateAdapted(S searchSortParameters) {
+		String[] sortCodes = searchSortParameters.getSortCodes();
 		int numberOfSortCodes = sortCodes.length;
 		String[] searchSortKeyValues = new String[numberOfSortCodes];
 
@@ -38,9 +45,15 @@ public abstract class AbstractSortKeyBackedSearchSortParametersAdapter<
 			}
 		}
 
-		return this.generateAdaptedFromSearchSortKeysValues(searchSortKeyValues, sortDirections);
+		return this.generateAdaptedFromSearchSortKeysValues(searchSortKeyValues, searchSortParameters);
 	}
 
-	protected abstract Optional<T> generateAdaptedFromSearchSortKeysValues(String[] searchSortKeysValues, String[] sortDirections);
+	/**
+	 *
+	 * @param searchSortKeysValues
+	 * @param searchSortParameters
+	 * @return
+	 */
+	protected abstract Optional<T> generateAdaptedFromSearchSortKeysValues(String[] searchSortKeysValues, S searchSortParameters);
 
 }

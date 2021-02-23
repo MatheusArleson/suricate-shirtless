@@ -6,13 +6,13 @@ import java.util.Objects;
 
 /**
  * Base interface for Pagination Parameters of an Search.
- * <p>
+ * <br><br>
  * Instances will hold the values of pagination be used on the Search itself.
- * <p>
+ * <br><br>
  * Pagination has a concept of Page, and requests can be done
  * for a specific page of an specific size.
  * Offsets can be achieved by adjusting both page properties.
- * <p>
+ * <br><br>
  * <b>Example:</b> A request for the 10th record can be done as:
  * Page 1 of Size 10 <br>
  * OR Page 2 of size 5 <br>
@@ -55,10 +55,10 @@ public interface SearchPaginationParameters {
 
 	/**
 	 * Checks if an instance of this interface is <b>Null</b>.
-	 * <p>
+	 * <br><br>
 	 * This is used internally to do checks before
 	 * an actual search is performed.
-	 * <p>
+	 * <br><br>
 	 * Example:
 	 * Null/Empty pagination parameters can be refused
 	 * OR a fallback default could be set.
@@ -74,10 +74,10 @@ public interface SearchPaginationParameters {
 
 	/**
 	 * Checks if an instance of this interface is <b>Not Null</b>.
-	 * <p>
+	 * <br><br>
 	 * This is used internally to do checks before
 	 * an actual search is performed.
-	 * <p>
+	 * <br><br>
 	 * Example:
 	 * Null/Empty pagination parameters can be refused
 	 * OR a fallback default could be set.
@@ -93,12 +93,12 @@ public interface SearchPaginationParameters {
 
 	/**
 	 * Checks if an instance of this interface is <b>Empty</b>.
-	 * <p>
+	 * <br><br>
 	 * Is Empty if at least one of the Pagination Parameters is null.
-	 * <p>
+	 * <br><br>
 	 * This is used internally to do checks before
 	 * an actual search is performed.
-	 * <p>
+	 * <br><br>
 	 * Example:
 	 * Null/Empty pagination parameters can be refused
 	 * OR a fallback default could be set.
@@ -119,12 +119,12 @@ public interface SearchPaginationParameters {
 
 	/**
 	 * Checks if an instance of this interface is <b>Not Empty</b>.
-	 * <p>
+	 * <br><br>
 	 * Is Not Empty if all of the Pagination Parameters is not null and have values.
-	 * <p>
+	 * <br><br>
 	 * This is used internally to do checks before
 	 * an actual search is performed.
-	 * <p>
+	 * <br><br>
 	 * Example:
 	 * Null/Empty pagination parameters can be refused
 	 * OR a fallback default could be set.

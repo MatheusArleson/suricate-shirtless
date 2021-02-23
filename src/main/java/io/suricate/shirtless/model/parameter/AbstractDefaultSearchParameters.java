@@ -6,10 +6,10 @@ import io.suricate.shirtless.model.parameter.sort.DefaultSearchSortParameters;
 
 /**
  * Abstraction of Search Parameters using default implementations for Pagination and Sorting.
- * <p>
+ * <br><br>
  * Extensions of this class will focus on the definition of the Search Filter Class to be used,
  * leveraging the existent default implementation for pagination and sorting.
- * <p>
+ * <br><br>
  * <b>Note about constructors:</b> If Dependency Injection is used,
  * the No-Args constructor <b>SHOULD</b> be visible on the implementation.
  * This is due to construction/initialization on Dependency Inversion Frameworks

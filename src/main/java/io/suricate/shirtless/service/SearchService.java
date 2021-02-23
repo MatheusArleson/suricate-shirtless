@@ -11,13 +11,12 @@ import java.util.Map;
 
 /**
  * Base interface for Search Services.
- * <p>
+ * <br><br>
  * Instances will provide to upstream a single point for all search related functionality.
- * <p>
+ * <br><br>
  * Search Service uses the concept of <b>Generics.</b> <br>
  * In other words, implementations can vary the actual type of each aspect
  * as long as the base interfaces are implemented by the custom objects.
- * <p>
  *
  * @param <O> Output Class of Search Results
  * @param <F> Filter Class of Search Parameters
@@ -36,7 +35,7 @@ public interface SearchService<
 
 	/**
 	 * Expose the total number of Search Results Possible.
-	 * <p>
+	 * <br><br>
 	 * For this method, does not make sense to pass any parameters.
 	 *
 	 * @return the total number of Search Results possible.
@@ -45,7 +44,7 @@ public interface SearchService<
 
 	/**
 	 * Counts the number of Search Results that match the Search Parameters.
-	 * <p>
+	 * <br><br>
 	 * For this method, only the filter aspect of the Search Parameters is important.
 	 * Other aspects, pagination/sorting, should not be considered.
 	 *
@@ -57,9 +56,9 @@ public interface SearchService<
 
 	/**
 	 * Gets the Search Results that match the Search Parameters.
-	 * <p>
+	 * <br><br>
 	 * For this method, all aspects of the Search Parameters should be evaluated.
-	 * <p>
+	 * <br><br>
 	 * The type of the Search Results are defined be the generic parameter of this interface.
 	 * Allowing implementations to pass any desired class.
 	 *
@@ -71,7 +70,7 @@ public interface SearchService<
 
 	/**
 	 * Exposes the model of the Search Filter Parameters in key-value format.
-	 * <p>
+	 * <br><br>
 	 * This method provides the meta model of the search filter parameters for upstream. <br>
 	 * Eg. A Controller can ask for the service to provide the meta model information.
 	 *
@@ -81,7 +80,7 @@ public interface SearchService<
 
 	/**
 	 * Exposes the model of the Search Pagination Parameters in key-value format.
-	 * <p>
+	 * <br><br>
 	 * This method provides the meta model of the search pagination parameters for upstream. <br>
 	 * Eg. A Controller can ask for the service to provide the meta model information.
 	 *
@@ -91,7 +90,7 @@ public interface SearchService<
 
 	/**
 	 * Exposes the model of the Search Sort Parameters in key-value format.
-	 * <p>
+	 * <br><br>
 	 * This method provides the meta model of the search sort parameters for upstream. <br>
 	 * Eg. A Controller can ask for the service to provide the meta model information.
 	 *

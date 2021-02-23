@@ -1,28 +1,41 @@
 package io.suricate.shirtless.model.adapter.pagination;
 
+import io.suricate.shirtless.model.parameter.filter.SearchFilterParameters;
 import io.suricate.shirtless.model.parameter.pagination.SearchPaginationParameters;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Optional;
 
+/**
+ * Base abstraction for {@link SearchPaginationParametersAdapter} implementations.
+ * <br><br>
+ * Implementations should just specify HOW the adapter does his work by implementing {@link #generateAdapted(SearchPaginationParameters)}.
+ *
+ * @param <P> Class of the Search Pagination Parameters
+ * @param <AP> Class of the Adapted Type; The output of the adapter.
+ */
 @RequiredArgsConstructor
 public abstract class AbstractSearchPaginationParametersAdapter<
 			P extends SearchPaginationParameters,
-			T
-		> implements SearchPaginationParametersAdapter<P, T> {
+			AP
+		> implements SearchPaginationParametersAdapter<P, AP> {
 
 	@Override
-	public Optional<T> adaptPagination(P searchPaginationParameters) {
+	public final Optional<AP> adaptPagination(P searchPaginationParameters) {
 		if (SearchPaginationParameters.isEmpty(searchPaginationParameters)) {
 			return Optional.empty();
 		} else {
-			return this.generateAdapted(
-				searchPaginationParameters.getPageNumber(),
-				searchPaginationParameters.getPageSize()
-			);
+			return this.generateAdapted(searchPaginationParameters);
 		}
 	}
 
-	protected abstract Optional<T> generateAdapted(Integer pageNumber, Integer pageSize);
+	/**
+	 * Adapts from {@link SearchPaginationParameters} to an Target type defined
+	 * by class generics.
+	 *
+	 * @param searchPaginationParameters the instance to be adapted
+	 * @return Empty Optional if parameter is empty OR cannot be adapted; Optional Containing the adapted object otherwise.
+	 */
+	protected abstract Optional<AP> generateAdapted(P searchPaginationParameters);
 
 }

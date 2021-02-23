@@ -5,7 +5,7 @@ import lombok.NonNull;
 
 /**
  * Exception triggered when the passed {@link SearchFilterParameters} could not be adapted
- * <br/>OR<br/>
+ * <br>OR<br>
  * adapted result is empty AND emptiness is not allowed in a operation.
  *
  * @see AdapterException
