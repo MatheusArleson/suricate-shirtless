@@ -11,7 +11,7 @@ import java.util.Objects;
  * In other words, the sort values require translation
  * from the code to the values itself (indirection). <br>
  * <b>Example:</b> User wants to sort books by title. <br>
- * Sort parameters should have the code for book tile, eg. 'bt'
+ * Sort parameters should have the code for book tile, eg. 'bt' as element on {@link SearchSortParameters#getSortCodes()}
  * <br><br>
  * Sorting has a concept of <b>directions</b>. <br>
  * In other words, the sort values require an direction to be

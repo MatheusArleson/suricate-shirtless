@@ -20,7 +20,7 @@ import java.util.Optional;
  * @param <F> Class of the Search Sort Parameters
  * @param <AF> Class of the Adapted Type; The output of the adapter.
  *
- * @see SearchSortParameters
+ * @see SearchFilterParameters
  *
  */
 public interface SearchFilterParametersAdapter<F extends SearchFilterParameters, AF> {

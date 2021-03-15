@@ -1,6 +1,7 @@
 package io.suricate.shirtless.model.adapter.sort.key;
 
 import io.suricate.shirtless.exceptions.search.parameters.InvalidSortKeyException;
+import io.suricate.shirtless.model.adapter.sort.AbstractSortKeyBackedSearchSortParametersAdapter;
 import io.suricate.shirtless.model.parameter.sort.key.SearchSortKey;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

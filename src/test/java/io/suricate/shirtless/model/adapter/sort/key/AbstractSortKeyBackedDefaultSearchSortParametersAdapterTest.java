@@ -1,5 +1,6 @@
 package io.suricate.shirtless.model.adapter.sort.key;
 
+import io.suricate.shirtless.model.adapter.sort.AbstractSortKeyBackedDefaultSearchSortParametersAdapter;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.platform.runner.JUnitPlatform;

@@ -1,12 +1,13 @@
 package io.suricate.shirtless.model.adapter.sort;
 
+import io.suricate.shirtless.model.adapter.sort.key.SearchSortKeyAdapter;
 import io.suricate.shirtless.model.parameter.sort.AbstractSearchSortParameters;
 import io.suricate.shirtless.model.parameter.sort.SearchSortParameters;
 
 import java.util.Optional;
 
 /**
- * Base interface for adaptation of an Search Sort Parameters.
+ * Base interface for adaptation of an {@link SearchSortParameters}.
  * <br><br>
  * Instances should focus on the adaptation of the {@link SearchSortParameters}
  * to the Target class defined in the class generics.
@@ -23,6 +24,7 @@ import java.util.Optional;
  * @see SearchSortParameters
  * @see AbstractSearchSortParameters
  * @see AbstractDefaultSearchSortParametersAdapter
+ * @see SearchSortKeyAdapter
  */
 public interface SearchSortParametersAdapter<S extends SearchSortParameters, AS> {
 

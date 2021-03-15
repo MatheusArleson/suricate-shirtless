@@ -7,51 +7,36 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+/**
+ * Abstraction for {@link SearchSortKeyAdapter} implementations that are backed by a {@link Enum}.
+ * <br><br>
+ * Implementations should just specify the Enum target class in the generics.
+ * <br><br>
+ * NOTE: In order for the Enum to honor the generic contract, make the enum implement {@link SearchSortKey}.
+ *
+ * @see SearchSortKey
+ * @see SearchSortKeyAdapter
+ * @see AbstractSortKeyAdapter
+ * @see AbstractMapBackedSearchSortKeyAdapter
+ *
+ * @param <E> Class of the Enum that will back this adapter.
+ */
 @RequiredArgsConstructor
 public abstract class AbstractEnumBackedSearchSortKeyAdapter<
-			T extends Enum<? extends SearchSortKey> & SearchSortKey
-		> implements SearchSortKeyAdapter {
+			E extends Enum<? extends SearchSortKey> & SearchSortKey
+		> extends AbstractMapBackedSearchSortKeyAdapter {
 
 	private static final int ENUM_CLASS_GENERICS_INDEX = 0;
 
-	@Getter(AccessLevel.NONE)
-	@Setter(AccessLevel.NONE)
-	private Map<String, SearchSortKey> codeToEnumMemberMap;
-
 	@Override
-	public Optional<SearchSortKey> adaptSortKeyCode(String code) {
-		if (Objects.isNull(code) || code.isEmpty()) {
-			return Optional.empty();
-		} else {
-			SearchSortKey enumMemberWithSameCode = this.getEnumMemberWithSameCode(code);
-			return Optional.ofNullable(enumMemberWithSameCode);
-		}
-	}
-
-	private SearchSortKey getEnumMemberWithSameCode(String code) {
-		Map<String, SearchSortKey> codeToEnumMemberMap = this.getCodeToEnumMemberMap();
-		return codeToEnumMemberMap.get(code);
-	}
-
-	private Map<String, SearchSortKey> getCodeToEnumMemberMap() {
-		if (Objects.isNull(this.codeToEnumMemberMap)) {
-			SearchSortKey[] enumMembers = this.getAllEnumMembers();
-			Map<String, SearchSortKey> map = Arrays.stream(enumMembers).collect(Collectors.toMap(
-				SearchSortKey::getCode,
-				Function.identity()
-			));
-
-			this.codeToEnumMemberMap = map;
-		}
-
-		return this.codeToEnumMemberMap;
+	protected Stream<SearchSortKey> getAvailableSearchSortKeysStream() {
+		SearchSortKey[] enumMembers = this.getAllEnumMembers();
+		return Stream.of(enumMembers);
 	}
 
 	private SearchSortKey[] getAllEnumMembers() {
