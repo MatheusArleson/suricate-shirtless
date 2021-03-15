@@ -45,21 +45,22 @@
 		<javadoc.maven.plugin.encoding>${encoding}</javadoc.maven.plugin.encoding>
 
 		<sl4j.version>1.7.30</sl4j.version>
-		<lombok.version>1.18.10</lombok.version>
+		<lombok.version>1.18.18</lombok.version>
 
-		<junit.jupiter.api.version>5.5.2</junit.jupiter.api.version>
-		<junit.jupiter.engine.version>5.5.2</junit.jupiter.engine.version>
-		<junit.jupiter.params.version>5.5.2</junit.jupiter.params.version>
-		<junit.jupiter.platform.runner.version>1.5.2</junit.jupiter.platform.runner.version>
-		<mockito.junit.jupiter.version>3.2.0</mockito.junit.jupiter.version>
+		<junit.jupiter.api.version>5.7.1</junit.jupiter.api.version>
+		<junit.jupiter.engine.version>5.7.1</junit.jupiter.engine.version>
+		<junit.jupiter.params.version>5.7.1</junit.jupiter.params.version>
+		<junit.jupiter.platform.runner.version>1.7.1</junit.jupiter.platform.runner.version>
+		<mockito.junit.jupiter.version>3.8.0</mockito.junit.jupiter.version>
 		<powermock.version>2.0.4</powermock.version>
-		<checkstyle.version>8.24</checkstyle.version>
+		<checkstyle.version>8.41</checkstyle.version>
 
 		<jacoco.maven.plugin.version>0.8.5</jacoco.maven.plugin.version>
 		<site.maven.plugin.version>3.8.2</site.maven.plugin.version>
 		<project.info.reports.maven.plugin.version>3.0.0</project.info.reports.maven.plugin.version>
 		<sources.maven.plugin.version>3.2.0</sources.maven.plugin.version>
 		<javadoc.maven.plugin.version>3.1.1</javadoc.maven.plugin.version>
+		<versions.maven.plugin.version>2.7</versions.maven.plugin.version>
 		<javadoc.doclet.report.maven.plugin.version>1.1.0</javadoc.doclet.report.maven.plugin.version>
 
 	</properties>
@@ -130,6 +131,7 @@
 
 	<build>
 		<plugins>
+
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
@@ -213,6 +215,16 @@
 					</execution>
 				</executions>
 			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>versions-maven-plugin</artifactId>
+				<version>${versions.maven.plugin.version}</version>
+				<configuration>
+					<rulesUri>file:///${project.basedir}/versions-maven-plugin-rules.xml</rulesUri>
+				</configuration>
+			</plugin>
+
 		</plugins>
 	</build>
 
